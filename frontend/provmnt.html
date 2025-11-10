@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Provider Scholarship Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4e5679;
+            --primary-light: #7685af;
+            --primary-dark: #21253a;
+            --secondary: #f5f7fa;
+            --secondary-dark: #ebeef3;
+            --text-primary: #21253a;
+            --text-secondary: #616c98;
+            --text-muted: #94a3c3;
+            --border-color: #ebeef3;
+            --white: #ffffff;
+            --radius: 0.5rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background-color: var(--secondary);
+    min-height: 100vh;
+    display: flex; /* Add this line */
+    flex-direction: column; /* Add this line */
+}
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 30px;
+        }
+
+        .header-actions, .nav-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        .admin-nav .back-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-nav .back-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        .main-content {
+    padding: 2rem 0;
+    flex: 1; /* Add this line */
+}
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary-dark);
+            font-weight: 600;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .actions button {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .actions button.view-details {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .actions button.approve {
+            background-color: #10b981;
+            color: var(--white);
+        }
+
+        .actions button.reject {
+            background-color: #ef4444;
+            color: var(--white);
+        }
+
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+        
+        .contact-info {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .submission-heading {
+            margin-top: 2rem;
+        }
+        .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .main-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .submission-heading {
+        font-size: 1.5rem;
+        margin: 20px 0 10px;
+        color: #555;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .actions button {
+        padding: 6px 12px;
+        margin-right: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .view-details {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .approve {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .reject {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .view-id-proof {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    button:hover {
+        opacity: 0.9;
+    }
+    .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-content h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .modal-content p {
+            margin: 10px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .modal-content strong {
+            color: #333;
+        }
+
+        .modal-content .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .modal-content .close-btn:hover {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="adminlov.html" class="logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                    </svg>
+                    ScholarVault
+                </a>
+                
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <h1 class="page-title">Provider's Scholarship Management</h1>
+        <p>Manage and review scholarship submissions from students.</p>
+
+        <h2 class="submission-heading">Review Scholarship Submissions</h2>
+
+        <div class="table-container">
+            <table id="scholarshipsTable">
+                <thead>
+                    <tr>
+                        <th>Scholarship Name</th>
+                        <th>Provider</th>
+                        <th>Amount</th>
+                        <th>Submission Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="scholarshipsBody">
+                    <tr>
+                        <td>Merit Scholarship</td>
+                        <td>ABC Foundation</td>
+                        <td>₹10,000</td>
+                        <td>2023-11-15</td>
+                        <td class="actions">
+                            <button class="view-details">View Details</button>
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Need-Based Grant</td>
+                        <td>XYZ Charity</td>
+                        <td>₹5,000</td>
+                        <td>2023-11-18</td>
+                        <td class="actions">
+                            <button class="view-details">View Details</button>
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sports Excellence Award</td>
+                        <td>Sports Inc.</td>
+                        <td>₹15,000</td>
+                        <td>2023-11-20</td>
+                        <td class="actions">
+                            <button class="view-details">View Details</button>
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>Academic Excellence Award</td>
+                        <td>Educational Trust</td>
+                        <td>₹20,000</td>
+                        <td>2023-11-22</td>
+                        <td class="actions">
+                            <button class="view-details">View Details</button>
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>Community Service Grant</td>
+                        <td>Local NGO</td>
+                        <td>₹7,000</td>
+                        <td>2023-11-25</td>
+                        <td class="actions">
+                            <button class="view-details">View Details</button>
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Innovation Scholarship</td>
+                        <td>Tech Innovators</td>
+                        <td>₹25,000</td>
+                        <td>2023-11-28</td>
+                        <td class="actions">
+                            <button class="view-details">View Details</button>
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div id="scholarshipModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h3>Scholarship Details</h3>
+            <div id="modalDetails">
+                <!-- Details will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact-info mb-4">
+                    <h4>Contact Us</h4>
+                    <p>scholarvault@gmail.com</p>
+                    <p>6238280918</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ScholarVault. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Base URL for the backend API
+        const baseUrl = 'http://127.0.0.1:5000';
+        const token = localStorage.getItem('authToken'); // Assuming token is stored here
+    
+        // Fetch and populate scholarships
+        async function fetchScholarships() {
+            try {
+                const response = await fetch(`${baseUrl}/admin/provider_scholarships`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+    
+                const result = await response.json();
+                if (result.status === 'success') {
+                    populateTable(result.data);
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error fetching scholarships:', error);
+                alert('Error fetching scholarships');
+            }
+        }
+    
+        // Populate the table with scholarship data
+        function populateTable(scholarships) {
+            const tbody = document.getElementById('scholarshipsBody');
+            tbody.innerHTML = '';
+    
+            scholarships.forEach(scholarship => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${scholarship.name}</td>
+                    <td>${scholarship.provider_name}</td>
+                    <td>${scholarship.amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}</td>
+                    <td>${new Date(scholarship.deadline || scholarship.created_at).toLocaleDateString()}</td>
+                    <td class="actions">
+                        <button class="view-details" data-id="${scholarship.id}">View Details</button>
+                        <button class="approve" data-id="${scholarship.id}">Approve</button>
+                        <button class="reject" data-id="${scholarship.id}">Reject</button>
+                        <button class="view-id-proof" data-id="${scholarship.provider_id}" data-url="${scholarship.id_proof_url || ''}">View ID Proof</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+    
+            // Add event listeners after populating
+            addEventListeners();
+        }
+    
+        // Add event listeners for buttons
+        function addEventListeners() {
+            document.querySelectorAll('.view-details').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const scholarshipId = button.getAttribute('data-id');
+                    await viewScholarshipDetails(scholarshipId);
+                });
+            });
+    
+            document.querySelectorAll('.approve').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const scholarshipId = button.getAttribute('data-id');
+                    await updateScholarshipStatus(scholarshipId, 'approve');
+                });
+            });
+    
+            document.querySelectorAll('.reject').forEach(button => {
+                button.addEventListener('click', async () => {
+                    const scholarshipId = button.getAttribute('data-id');
+                    await updateScholarshipStatus(scholarshipId, 'reject');
+                });
+            });
+    
+            document.querySelectorAll('.view-id-proof').forEach(button => {
+                button.addEventListener('click', () => {
+                    const providerId = button.getAttribute('data-id');
+                    const idProofUrl = button.getAttribute('data-url');
+                    if (idProofUrl) {
+                        window.open(`${baseUrl}${idProofUrl}`, '_blank'); // Open in new tab for download
+                    } else {
+                        alert('No ID proof available for this provider.');
+                    }
+                });
+            });
+        }
+    
+        // View scholarship details
+        async function viewScholarshipDetails(scholarshipId) {
+            try {
+                const response = await fetch(`${baseUrl}/admin/provider_scholarship_details/${scholarshipId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const result = await response.json();
+                if (result.status === 'success') {
+                    const details = result.data;
+                    const modalDetails = document.getElementById('modalDetails');
+                    modalDetails.innerHTML = `
+                        <p><strong>Scholarship Name:</strong> ${details.name}</p>
+                        <p><strong>Provider:</strong> ${details.provider_name}</p>
+                        <p><strong>About the Program:</strong> ${details.about_the_program}</p>
+                        <p><strong>Eligibility:</strong> ${details.eligibility_criteria}</p>
+                        <p><strong>Benefits:</strong> ${details.benefits || 'N/A'}</p>
+                        <p><strong>Amount:</strong> ${details.amount.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}</p>
+                        <p><strong>Deadline:</strong> ${new Date(details.deadline).toLocaleDateString()}</p>
+                    `;
+                    openModal();
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error fetching details:', error);
+                alert('Error fetching scholarship details: ' + error.message);
+            }
+        }
+
+        // Open the modal
+        function openModal() {
+            const modal = document.getElementById('scholarshipModal');
+            modal.style.display = 'flex';
+        }
+
+        // Close the modal
+        function closeModal() {
+            const modal = document.getElementById('scholarshipModal');
+            modal.style.display = 'none';
+        }
+    
+        // Update scholarship status
+        async function updateScholarshipStatus(scholarshipId, action) {
+            if (!confirm(`Are you sure you want to ${action} this scholarship?`)) return;
+    
+            try {
+                const response = await fetch(`${baseUrl}/admin/provider_scholarships/${scholarshipId}/status`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ action }),
+                });
+    
+                const result = await response.json();
+                alert(result.message);
+                if (result.status === 'success') {
+                    fetchScholarships(); // Refresh the table
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Error updating scholarship status');
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            const tbody = document.getElementById('scholarshipsBody');
+            if (!tbody) {
+                console.error('Element with ID "scholarshipsBody" not found. Cannot fetch scholarships.');
+                return;
+            }
+            fetchScholarships();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - ScholarVault</title>
+    <meta name="description" content="Admin Dashboard for ScholarVault - Manage scholarships and notices" />
+    <meta name="author" content="ScholarVault" />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Variables */
+        :root {
+            --primary: #4e5679;
+            --primary-light: #7685af;
+            --primary-dark: #21253a;
+            --secondary: #f5f7fa;
+            --secondary-dark: #ebeef3;
+            --text-primary: #21253a;
+            --text-secondary: #616c98;
+            --text-muted: #94a3c3;
+            --border-color: #ebeef3;
+            --white: #ffffff;
+            --radius: 0.5rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Base Styles */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, var(--secondary-dark)/0.5, white);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Admin Navigation */
+        .admin-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 16px 24px;
+            box-shadow: var(--shadow-sm);
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .admin-nav .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-nav .logo {
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .admin-nav .logo svg {
+            margin-right: 8px;
+        }
+
+        .admin-nav .logo-badge {
+            font-size: 0.875rem;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background-color: rgba(33, 37, 58, 0.1);
+            color: var(--primary-dark);
+            margin-left: 12px;
+            text-decoration: none;
+        }
+
+        .admin-nav .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .admin-nav .notification-btn {
+            position: relative;
+            padding: 8px;
+            border-radius: 50%;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .admin-nav .notification-btn:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .admin-nav .notification-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+        }
+
+        .admin-nav .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(33, 37, 58, 0.2);
+            background: none;
+            cursor: pointer;
+        }
+
+        .admin-nav .user-btn:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .admin-nav .logout-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .admin-nav .logout-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Main Content */
+        main {
+            padding: 48px 24px;
+        }
+
+        .dashboard-header {
+            margin-bottom: 48px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .dashboard-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 48rem;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .features-section {
+            margin-bottom: 48px;
+        }
+
+        .features-section h2 {
+            font-size: 1.875rem;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .admin-feature-card {
+            height: 230px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 24px;
+            cursor: pointer;
+        }
+
+        .admin-feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-icon {
+            height: 56px;
+            width: 56px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom right, rgba(118, 133, 175, 0.2), rgba(78, 86, 121, 0.2));
+        }
+
+        .feature-icon i {
+            font-size: 1.25rem;
+            color: var(--primary);
+            transition: all 0.4s ease;
+        }
+
+        .admin-feature-card:hover .feature-icon i {
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        .admin-feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .admin-feature-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .feature-link {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: auto;
+        }
+
+        .feature-link button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .feature-link button:hover {
+            color: var(--primary-light);
+        }
+        .navbar-menu {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .navbar-menu {
+                display: flex;
+                gap: 2rem;
+                align-items: center;
+            }
+        }
+        
+        .navbar-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .navbar-link:hover {
+            color: var(--primary);
+        }
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .contact-info {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 3rem;
+                text-align: left;
+            }
+            
+            .dashboard-header p {
+                text-align: left;
+                margin: 0;
+            }
+        }
+        /* Toast functionality */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 8px;
+            box-shadow: var(--shadow-lg);
+            max-width: 300px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.3s forwards, fadeOut 0.3s 4.7s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+  <header class="admin-nav">
+      <div class="container">
+          <div class="logo-container">
+              <a href="landinglovee.html" class="logo">
+                  <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                      <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                  </svg>
+                  <span>ScholarVault</span>
+                  <span class="logo-badge">Admin</span>
+              </a>
+          </div>
+            
+            <nav class="navbar-menu"></nav>
+            <a href="landinglovee.html" class="navbar-link">Logout</a>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Admin Dashboard</h1>
+                <p>Manage scholarships, notices, and platform features from this centralized dashboard.</p>
+            </div>
+            
+            <div class="features-section">
+                <h2>Administrative Features</h2>
+                
+                <div class="features-grid">
+                    <div class="admin-feature-card" onclick="window.location.href='scholmngt.html'">
+                        <div class="feature-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        
+                        <h3>Scholarship Management</h3>
+                        <p>Create and modify scholarship listings, defining criteria, deadlines, and benefits.</p>
+                    </div>
+                    
+                    <div class="admin-feature-card" onclick="window.location.href='notimgmt.html'">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        
+                        <h3>Notice Management</h3>
+                        <p>Create and manage notices for students with logos and descriptions.</p>
+                    </div>
+                    <div class="admin-feature-card" onclick="window.location.href='provmnt.html'">
+                        <div class="feature-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        
+                        <h3>Provider Scholarship Management</h3>
+                        <p>Manage scholarships provided by organizations, including editing and reviewing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="contact-info mb-4">
+          <h4>Contact Us</h4>
+          <p>scholarvault@gmail.com</p>
+          <p>6238280918</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 ScholarVault. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Toast functionality
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+            
+            // Remove toast after animation completes
+            setTimeout(() => {
+                container.removeChild(toast);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scholarship details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #4e5679;
+            --primary-light: #7685af;
+            --primary-dark: #21253a;
+            --secondary: #f5f7fa;
+            --secondary-dark: #ebeef3;
+            --text-primary: #21253a;
+            --text-secondary: #616c98;
+            --text-muted: #94a3c3;
+            --border-color: #ebeef3;
+            --white: #ffffff;
+            --radius: 0.5rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 2rem 0;
+            flex: 1;
+        }
+        
+        .program-card {
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        
+        .section-content {
+            margin-bottom: 2rem;
+        }
+        
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .section-content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .prize-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .prize-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .prize-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .prize-note {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--secondary-dark);
+            border-radius: var(--radius);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+        
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+        
+        .contact-info {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .program-card {
+                padding: 1.5rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="scholomatch.html" class="logo">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                </svg>
+                ScholarVault
+            </a>
+            <a href="scholist.html" class="btn btn-primary">Back to Scholarships</a>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <div class="program-card">
+            <section>
+                <h1 class="section-title">About the Program</h1>
+                <div class="section-content" id="about-program">
+                    <p></p>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="section-title">Eligibility</h2>
+                <div class="section-content" id="eligibility">
+                    <p></p>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="section-title">Benefits</h2>
+                <div class="section-content" id="benefits">
+                    <p></p>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="section-title">Required Documents</h2>
+                <div class="section-content" id="required-documents">
+                    <p></p>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-content">
+                    <a href="#" class="btn btn-primary" id="apply-now">Apply Now</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+        <div class="footer-content">
+        <div class="contact-info mb-4">
+        <h4>Contact Us</h4>
+        <p>scholarvault@gmail.com</p>
+        <p>6238280918</p>
+        </div>
+        </div>
+        
+        <div class="footer-bottom">
+        <p>&copy; 2025 ScholarVault. All rights reserved.</p>
+        </div>
+        </div>
+        </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Get scholarship ID and type from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const scholarshipIdWithType = urlParams.get('scholarshipId');
+    const scholarshipType = 'provider'; // Hardcode to 'provider' for this page
+
+    // Parse the scholarshipId (e.g., "provider_1" -> "1" and validate type)
+    let scholarshipId;
+    if (scholarshipIdWithType) {
+        const [typeFromId, id] = scholarshipIdWithType.split('_');
+        scholarshipId = id;
+        if (typeFromId !== scholarshipType) {
+            console.warn('Type mismatch between ID and parameter', typeFromId, scholarshipType);
+        }
+    } else {
+        scholarshipId = null;
+    }
+
+    // Retrieve details from localStorage (set by scholist.html)
+    const scholarshipDetails = JSON.parse(localStorage.getItem('scholarshipDetails'));
+
+    if (scholarshipDetails && scholarshipDetails.id === parseInt(scholarshipId) && scholarshipDetails.type === scholarshipType) {
+        displayScholarshipDetails(scholarshipDetails);
+    } else if (scholarshipId) {
+        // Fallback: Fetch details if not in localStorage
+        fetchScholarshipDetails(scholarshipId, scholarshipType);
+    } else {
+        alert('Invalid scholarship ID');
+        updateErrorState('Error: Invalid Scholarship');
+    }
+});
+
+function displayScholarshipDetails(details) {
+    const aboutProgramDiv = document.getElementById('about-program');
+    if (aboutProgramDiv) aboutProgramDiv.querySelector('p').textContent = details.about_the_program || 'No description available';
+    else console.error('About program element not found');
+
+    const eligibilityDiv = document.getElementById('eligibility');
+    if (eligibilityDiv) eligibilityDiv.querySelector('p').textContent = details.eligibility || 'Eligibility information not specified';
+    else console.error('Eligibility element not found');
+
+    const benefitsDiv = document.getElementById('benefits');
+    if (benefitsDiv) benefitsDiv.querySelector('p').textContent = details.benefits || 'Benefits information not specified';
+    else console.error('Benefits element not found');
+
+    const requiredDocsDiv = document.getElementById('required-documents');
+    if (requiredDocsDiv) {
+        if (details.required_documents && details.required_documents.length > 0) {
+            // Format each document name: replace underscores with spaces and capitalize
+            const formattedDocs = details.required_documents.map(doc => 
+                doc.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+            );
+            requiredDocsDiv.querySelector('p').textContent = ` ${formattedDocs.join(', ')}`;
+        } else {
+            requiredDocsDiv.querySelector('p').textContent = 'Required documents not specified';
+        }
+    } else console.error('Required documents element not found');
+
+    const applyNowButton = document.getElementById('apply-now');
+    if (applyNowButton) {
+        applyNowButton.href = `provapp.html?scholarshipId=provider_${details.id}`;
+    } else console.error('Apply now button element not found');
+}
+
+async function fetchScholarshipDetails(scholarshipId, scholarshipType = 'provider') {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('Please log in to view scholarship details');
+        }
+        const response = await fetch(`http://127.0.0.1:5000/scholarships/${scholarshipId}?type=${scholarshipType}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to fetch scholarship details');
+        }
+        const data = await response.json();
+        if (data.status === 'success') {
+            displayScholarshipDetails(data.data);
+            localStorage.setItem('scholarshipDetails', JSON.stringify(data.data));
+        } else {
+            throw new Error(data.message || 'Failed to load details');
+        }
+    } catch (error) {
+        console.error('Error fetching scholarship details:', error);
+        alert(error.message);
+        updateErrorState('Error Loading Scholarship');
+    }
+}
+
+function updateErrorState(message) {
+    const aboutProgramDiv = document.getElementById('about-program');
+    if (aboutProgramDiv) aboutProgramDiv.querySelector('p').textContent = message;
+    else console.error('About program element not found');
+
+    ['eligibility', 'benefits', 'required-documents'].forEach(id => {
+        const div = document.getElementById(id);
+        if (div) div.querySelector('p').textContent = 'Error loading content';
+        else console.error(`${id} element not found`);
+    });
+}
+    </script>
+</body>
+</html>

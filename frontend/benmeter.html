@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BenefitMeter - ScholarVault</title>
+<meta name="description" content="Calculate your scholarship benefits" />
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+    :root {
+        --primary: #465F7E;
+        --primary-light: #6A89B7;
+        --primary-dark: #23324D;
+        --secondary: #F7FAFF;
+        --secondary-dark: #EDF2F7;
+        --border-color: #E2E8F0;
+        --text-primary: #2D3748;
+        --text-secondary: #4A5568;
+        --text-muted: #718096;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Raleway', sans-serif;
+        color: var(--text-primary);
+        line-height: 1.5;
+        background: var(--secondary);
+        background: linear-gradient(to bottom right, var(--secondary), white);
+        min-height: 100vh;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+        h1 {
+            font-size: 3.5rem;
+        }
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Navbar */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(4px);
+        padding: 1rem 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+    }
+
+    .navbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+
+    .logo-icon {
+        width: 2rem;
+        height: 2rem;
+        background-color: transparent; /* Changed to transparent */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary); /* Keep the icon color */
+    }
+
+    .logo-text {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+    }
+
+    .navbar-menu {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        .navbar-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+    }
+
+    .navbar-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .navbar-link:hover {
+        color: var(--primary);
+    }
+
+    .menu-button {
+        display: block;
+        background: none;
+        border: none;
+        color: var(--primary-dark);
+        cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+        .menu-button {
+            display: none;
+        }
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.375rem;
+        font-weight: 600;
+        transition: all 0.3s;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-light);
+    }
+
+    .btn-primary:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    /* Main content */
+    .main-content {
+        padding-top: 6rem;
+        padding-bottom: 4rem;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .benefit-container {
+        max-width: 48rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .header-badge {
+        display: inline-block;
+        padding: 0.25rem 1rem;
+        border-radius: 9999px;
+        background-color: rgba(70, 95, 126, 0.1);
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .calculator-card {
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .calculator-body {
+        padding: 2rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    @media (min-width: 640px) {
+        .form-row {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+    }
+
+    .form-input-wrapper {
+        position: relative;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(70, 95, 126, 0.1);
+    }
+
+    .form-input-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+    }
+
+    select.form-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 1rem;
+    }
+
+    .results {
+        padding: 2rem;
+        background: linear-gradient(to right, var(--primary), var(--primary-light));
+        border-top: 1px solid var(--border-color);
+        display: none;
+    }
+
+    .results.active {
+        display: block;
+        animation: scaleIn 0.3s ease-in-out;
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .results-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    @media (min-width: 640px) {
+        .results-content {
+            flex-direction: row;
+        }
+    }
+
+    .results-icon {
+        width: 3rem;
+        height: 3rem;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    @media (min-width: 640px) {
+        .results-icon {
+            margin-bottom: 0;
+        }
+    }
+
+    .results-icon svg {
+        color: white;
+    }
+
+    .results-text h3 {
+        color: white;
+        margin-bottom: 0.25rem;
+    }
+
+    .results-text p {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+    }
+
+    .results-amount {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+        font-family: 'Playfair Display', serif;
+    }
+
+    
+    .footer-brand p {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1.5rem;
+    }
+
+   
+    /* Mobile menu */
+    .mobile-menu {
+        display: none;
+        background-color: white;
+        padding: 1rem 0;
+    }
+
+    .mobile-menu.active {
+        display: block;
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .mobile-menu-link {
+        display: block;
+        padding: 0.5rem 0;
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .mobile-menu-link:hover {
+        color: var(--primary);
+    }
+    /* Footer Styles */
+.footer {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 3rem 0 2rem;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  margin-bottom: 0;
+}
+
+.contact-info {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+    .contact-info i {
+        margin-right: 0.5rem;
+        color: var(--primary-light);
+    }
+</style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="homemp.html" class="logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                    </svg>
+                </div>
+                <span class="logo-text">ScholarVault</span>
+            </a>
+    
+            <button class="menu-button" id="menuButton" aria-label="Toggle menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12"></line>
+                    <line x1="4" x2="20" y1="6" y2="6"></line>
+                    <line x1="4" x2="20" y1="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    
+        <div class="container mobile-menu" id="mobileMenu">
+            <a href="homelovable.html#features" class="mobile-menu-link">ScholarMatch</a>
+            <a href="homelovable.html#features" class="mobile-menu-link">Docvault</a>
+            <a href="index.html#community" class="mobile-menu-link">Community</a>
+            <a href="benefitmeter.html" class="mobile-menu-link">BenefitMeter</a>
+            <a href="#" class="btn btn-primary" style="display: block; margin-top: 1rem;">Dashboard</a>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="benefit-container">
+                <div class="header">
+                    <div class="header-badge">Scholarship Calculator</div>
+                    <h1>BenefitMeter</h1>
+                    <p class="text-lg text-scholar-text-secondary">
+                        Calculate your potential educational savings with scholarships
+                    </p>
+                </div>
+    
+                <div class="calculator-card">
+                    <div class="calculator-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="tuition">Tuition Fees</label>
+                                <div class="form-input-wrapper">
+                                    <input
+                                        id="tuition"
+                                        type="number"
+                                        class="form-input"
+                                        placeholder="Enter amount"
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="misc">Miscellaneous Fees</label>
+                                <div class="form-input-wrapper">
+                                    <input
+                                        id="misc"
+                                        type="number"
+                                        class="form-input"
+                                        placeholder="Enter amount"
+                                    />
+                                </div>
+                            </div>
+                            
+    
+                        <div class="form-group">
+                            <label class="form-label" for="scholarshipType">Scholarship Type</label>
+                            <div class="form-input-wrapper">
+                                <span class="form-input-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                    </svg>
+                                </span>
+                                <select id="scholarshipType" class="form-input">
+                                    <option value="all">All Types</option>
+                                    <option value="For Girls">For Girls</option>
+                                    <option value="Sports Talent">Sports Talent</option>
+                                    <option value="SC/ST/OBC/DNT">SC/ST/OBC/DNT</option>
+                                    <option value="Minorities">Minorities</option>
+                                    <option value="Merit Based">Merit Based</option>
+                                    <option value="Provider Scholarships">Provider Scholarships</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label" for="scholarship">Select Scholarship</label>
+                            <div class="form-input-wrapper">
+                                <span class="form-input-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2v6M12 18v4M4.93 10.93l6.82 6.82M18.07 10.93l-6.82 6.82"></path>
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                    </svg>
+                                </span>
+                                <select id="scholarship" class="form-input">
+                                    <option value="">Choose a scholarship</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <button id="calculateBtn" class="btn btn-primary" style="width: 100%;" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                                <rect width="16" height="20" x="4" y="2" rx="2"></rect>
+                                <line x1="8" x2="16" y1="6" y2="6"></line>
+                                <line x1="16" x2="16" y1="14" y2="18"></line>
+                                <path d="M16 10h.01"></path>
+                                <path d="M12 10h.01"></path>
+                                <path d="M8 10h.01"></path>
+                                <path d="M12 14h.01"></path>
+                                <path d="M8 14h.01"></path>
+                                <path d="M8 18h.01"></path>
+                            </svg>
+                            Calculate Potential Savings
+                        </button>
+                    </div>
+    
+                    <div class="results" id="results">
+                        <div class="results-content">
+                            <div style="display: flex; align-items: center;">
+                                <div class="results-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                        <path d="m9 11 3 3L22 4"></path>
+                                    </svg>
+                                </div>
+                                <div class="results-text">
+                                    <h3>Your Potential Savings</h3>
+                                    <p>Based on selected scholarship</p>
+                                </div>
+                            </div>
+                            <div class="results-amount" id="savingsAmount">₹0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact-info mb-4">
+                    <h4>Contact Us</h4>
+                    <p>scholarvault@gmail.com</p>
+                    <p>6238280918</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 ScholarVault. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Elements
+        const menuButton = document.getElementById('menuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const tuitionInput = document.getElementById('tuition');
+        const miscInput = document.getElementById('misc');
+        const scholarshipTypeSelect = document.getElementById('scholarshipType');
+        const scholarshipSelect = document.getElementById('scholarship');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resultsDiv = document.getElementById('results');
+        const savingsAmount = document.getElementById('savingsAmount');
+    
+        // Store all scholarships globally
+        let scholarships = [];
+    
+        // Load persisted fees
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTuition = localStorage.getItem('tuitionFee');
+            const savedMisc = localStorage.getItem('miscFee');
+            if (savedTuition) tuitionInput.value = savedTuition;
+            if (savedMisc) miscInput.value = savedMisc;
+    
+            fetchEligibleScholarships();
+        });
+    
+        // Fetch eligible scholarships
+        async function fetchEligibleScholarships() {
+            const token = localStorage.getItem('token');
+            const userId = localStorage.getItem('userId');
+
+            if (!userId) {
+                console.error('User ID not found in localStorage.');
+                scholarships = getFallbackScholarships();
+                updateScholarshipOptions();
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/eligible-scholarships/${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch scholarships');
+                const data = await response.json();
+
+                // Expecting either a direct list or an object like { data: [...] }
+                const results = Array.isArray(data) ? data : data.data;
+
+                scholarships = results.map(sch => ({
+                    id: sch.id,
+                    name: sch.name,
+                    type: sch.category || sch.type || 'General',
+                    amount: sch.amount || 0
+                }));
+            } catch (error) {
+                console.error('Error fetching scholarships:', error.message);
+                scholarships = getFallbackScholarships();
+            }
+
+            updateScholarshipOptions();
+        }
+
+    
+        // Fallback data
+        function getFallbackScholarships() {
+            return [
+                { id: '1', name: 'Full Ride Scholarship', type: 'Merit Based', amount: 50000 },
+                { id: '2', name: 'Girls Empowerment Grant', type: 'For Girls', amount: 37500 },
+                { id: '3', name: 'Sports Excellence Award', type: 'Sports Talent', amount: 40000 },
+                { id: '4', name: 'SC/ST Scholarship', type: 'SC/ST/OBC/DNT', amount: 30000 },
+                { id: '5', name: 'Minority Support Fund', type: 'Minorities', amount: 20000 }
+            ];
+        }
+    
+        // Update scholarship dropdown
+        function updateScholarshipOptions() {
+            const selectedType = scholarshipTypeSelect.value;
+            const filtered = selectedType === 'all' ? scholarships : scholarships.filter(s => s.type === selectedType);
+    
+            scholarshipSelect.innerHTML = '<option value="">Choose a scholarship</option>';
+            filtered.forEach(s => {
+                const option = document.createElement('option');
+                option.value = s.id;
+                option.textContent = `${s.name} (₹${s.amount.toLocaleString()})`;
+                scholarshipSelect.appendChild(option);
+            });
+    
+            checkInputs();
+        }
+    
+        // Calculate savings
+        function calculateSavings() {
+            const tuition = parseFloat(tuitionInput.value) || 0;
+            const misc = parseFloat(miscInput.value) || 0;
+            const total = tuition + misc;
+            const selectedId = scholarshipSelect.value;
+    
+            const selectedScholarship = scholarships.find(s => s.id === selectedId);
+            if (!selectedScholarship) {
+                resultsDiv.classList.remove('active');
+                return;
+            }
+    
+            const savings = Math.min(selectedScholarship.amount || 0, total);
+            savingsAmount.textContent = `₹${savings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            resultsDiv.classList.add('active');
+    
+            localStorage.setItem('tuitionFee', tuition);
+            localStorage.setItem('miscFee', misc);
+        }
+    
+        // Enable/disable button
+        function checkInputs() {
+            const hasValues = tuitionInput.value || miscInput.value;
+            const selectedScholarship = scholarshipSelect.value && scholarshipSelect.value !== "";
+            calculateBtn.disabled = !(hasValues && selectedScholarship);
+        }
+    
+        // Hamburger menu
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuButton.innerHTML = mobileMenu.classList.contains('active') ? `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" x2="6" y1="6" y2="18"></line>
+                    <line x1="6" x2="18" y1="6" y2="18"></line>
+                </svg>
+            ` : `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="4" x2="20" y1="12" y2="12"></line>
+                    <line x1="4" x2="20" y1="6" y2="6"></line>
+                    <line x1="4" x2="20" y1="18" y2="18"></line>
+                </svg>
+            `;
+        });
+    
+        // Event listeners
+        scholarshipTypeSelect.addEventListener('change', updateScholarshipOptions);
+        tuitionInput.addEventListener('input', checkInputs);
+        miscInput.addEventListener('input', checkInputs);
+        scholarshipSelect.addEventListener('change', checkInputs);
+        calculateBtn.addEventListener('click', calculateSavings);
+    
+        // Set year
+        document.getElementById('currentYear')?.textContent = new Date().getFullYear();
+    </script>
+    
+    </body>
+</html>

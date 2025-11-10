@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #465F7E;
+            --primary-light: #6A89B7;
+            --primary-dark: #23324D;
+            --secondary-color: #F7FAFF;
+            --secondary-dark: #EDF2F7;
+            --text-primary: #2D3748;
+            --text-secondary: #4A5568;
+            --text-muted: #718096;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 0.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Logo Styles */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .subheading {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Scholarship Cards */
+        .scholarships-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .empty-state h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .scholarship-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .scholarship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .scholarship-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .scholarship-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .scholarship-details {
+            margin-bottom: 1rem;
+        }
+
+        .scholarship-details p {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .scholarship-deadline {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            padding: 0.25rem 0.5rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .unsave-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .unsave-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+       /* Footer Styles */
+.footer {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 3rem 0 2rem;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  margin-bottom: 0;
+}
+
+.contact-info {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info h4 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .scholarships-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="homemp.html" class="logo">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                </svg>
+                ScholarVault
+            </a>
+            <h1>Saved Scholarships</h1>
+            <p class="subheading">Manage your saved scholarships in one place</p>
+        </header>
+
+        <main>
+            <div id="scholarships-container" class="scholarships-container">
+                <!-- Scholarships will be populated here by JavaScript -->
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="container">
+          <div class="footer-content">
+            <div class="contact-info mb-4">
+              <h4>Contact Us</h4>
+              <p>scholarvault@gmail.com</p>
+              <p>6238280918</p>
+            </div>
+          </div>
+          
+          <div class="footer-bottom">
+            <p>&copy; 2023 ScholarVault. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    <script>
+        // Sample scholarship data - in a real app, this would come from a server
+        // For this demo, we'll store it in localStorage
+        const initializeScholarships = () => {
+            // Check if we already have scholarships in localStorage
+            const savedScholarships = localStorage.getItem('savedScholarships');
+            
+            if (savedScholarships) {
+                return JSON.parse(savedScholarships);
+            }
+            
+            // If not, create some sample data
+            const sampleScholarships = [
+                {
+                    id: 1,
+                    title: "Future Tech Leaders Scholarship",
+                    amount: "1,000",
+                    provider: "Tech Foundation",
+                    eligibility: "Computer Science students with GPA 3.5+",
+                    deadline: "June 30, 2023"
+                },
+                {
+                    id: 2,
+                    title: "Women in STEM Grant",
+                    amount: "2,500",
+                    provider: "Science Association",
+                    eligibility: "Female students pursuing STEM degrees",
+                    deadline: "July 15, 2023"
+                },
+                {
+                    id: 3,
+                    title: "First Generation College Fund",
+                    amount: "2,500",
+                    provider: "Education Access Foundation",
+                    eligibility: "First-generation college students",
+                    deadline: "August 1, 2023"
+                },
+                {
+                    id: 4,
+                    title: "Global Leadership Scholarship",
+                    amount: "10,000",
+                    provider: "International Education Institute",
+                    eligibility: "Students with leadership experience",
+                    deadline: "May 31, 2023"
+                }
+            ];
+            
+            localStorage.setItem('savedScholarships', JSON.stringify(sampleScholarships));
+            return sampleScholarships;
+        };
+
+        // Render scholarships to the DOM
+        const renderScholarships = (scholarships) => {
+            const container = document.getElementById('scholarships-container');
+            container.innerHTML = '';
+            
+            if (scholarships.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>No saved scholarships</h2>
+                        <p>When you save scholarships, they will appear here.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            scholarships.forEach(scholarship => {
+                const card = document.createElement('div');
+                card.className = 'scholarship-card';
+                card.innerHTML = `
+                    <h2 class="scholarship-title">${scholarship.title}</h2>
+                    <div class="scholarship-amount">${scholarship.amount}</div>
+                    <div class="scholarship-details">
+                        <p><strong>Provider:</strong> ${scholarship.provider}</p>
+                        <p><strong>Eligibility:</strong> ${scholarship.eligibility}</p>
+                    </div>
+                    <span class="scholarship-deadline">Deadline: ${scholarship.deadline}</span>
+                    <button class="unsave-btn" data-id="${scholarship.id}">Remove Scholarship</button>
+                `;
+                container.appendChild(card);
+            });
+
+            // Add event listeners to unsave buttons
+            document.querySelectorAll('.unsave-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    unsaveScholarship(parseInt(this.getAttribute('data-id')));
+                });
+            });
+        };
+
+        // Remove a scholarship
+        const unsaveScholarship = (id) => {
+            let scholarships = JSON.parse(localStorage.getItem('savedScholarships'));
+            scholarships = scholarships.filter(scholarship => scholarship.id !== id);
+            localStorage.setItem('savedScholarships', JSON.stringify(scholarships));
+            renderScholarships(scholarships);
+        };
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            const scholarships = initializeScholarships();
+            renderScholarships(scholarships);
+        });
+    </script>
+</body>
+</html>

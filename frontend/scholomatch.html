@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScholarVault - Find Your Perfect Scholarships</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+/* Base Styles */
+:root {
+--primary: #4e5679;
+--primary-light: #7685af;
+--primary-dark: #21253a;
+--secondary: #f5f7fa;
+--secondary-dark: #ebeef3;
+--text-primary: #21253a;
+--text-secondary: #616c98;
+--text-muted: #94a3c3;
+--border-color: #ebeef3;
+--white: #ffffff;
+--radius: 0.5rem;
+--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+*, *::before, *::after {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html, body {
+font-family: 'Raleway', sans-serif;
+font-size: 16px;
+line-height: 1.5;
+color: var(--text-primary);
+scroll-behavior: smooth;
+background-color: var(--white);
+}
+
+.container {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Playfair Display', serif;
+font-weight: 700;
+line-height: 1.2;
+margin-bottom: 1rem;
+}
+
+h1 {
+font-size: 2.5rem;
+}
+
+h2 {
+font-size: 2rem;
+}
+
+h3 {
+font-size: 1.5rem;
+}
+
+p {
+margin-bottom: 1rem;
+}
+
+a {
+color: var(--primary);
+text-decoration: none;
+transition: color 0.3s ease;
+}
+
+a:hover {
+color: var(--primary-light);
+}
+
+.btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 0.75rem 1.5rem;
+border-radius: var(--radius);
+font-weight: 600;
+transition: all 0.3s ease;
+cursor: pointer;
+font-size: 1rem;
+}
+
+.btn-primary {
+background-color: var(--primary);
+color: var(--white);
+border: none;
+}
+
+.btn-primary:hover {
+background-color: var(--primary-light);
+color: var(--white);
+}
+
+.btn-outline {
+background-color: transparent;
+color: var(--primary);
+border: 1px solid var(--primary);
+}
+
+.btn-outline:hover {
+background-color: var(--secondary);
+}
+
+.btn-large {
+padding: 1rem 2rem;
+font-size: 1.125rem;
+}
+
+.text-center {
+text-align: center;
+}
+
+.mt-8 {
+margin-top: 2rem;
+}
+
+.hide-mobile {
+display: none;
+}
+
+@media (min-width: 768px) {
+h1 {
+font-size: 3.5rem;
+}
+
+h2 {
+font-size: 2.5rem;
+}
+
+h3 {
+font-size: 1.75rem;
+}
+
+.hide-mobile {
+display: inline;
+}
+}
+
+/* Navbar Styles */
+.navbar {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(5px);
+z-index: 1000;
+box-shadow: var(--shadow-sm);
+padding: 1rem 0;
+}
+
+.navbar-content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-family: 'Playfair Display', serif;
+font-size: 1.5rem;
+font-weight: 700;
+color: var(--primary-dark);
+display: flex;
+align-items: center;
+}
+
+.logo-icon {
+margin-right: 8px;
+color: var(--primary);
+}
+
+.nav-links {
+display: none;
+align-items: center;
+gap: 2rem;
+}
+
+.nav-links a {
+font-weight: 500;
+}
+
+.mobile-menu-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+background: none;
+border: none;
+cursor: pointer;
+color: var(--primary-dark);
+}
+
+.mobile-menu-btn svg {
+width: 24px;
+height: 24px;
+}
+
+@media (min-width: 768px) {
+.nav-links {
+display: flex;
+}
+
+.mobile-menu-btn {
+display: none;
+}
+}
+
+.nav-links.active {
+display: flex;
+flex-direction: column;
+position: absolute;
+top: 100%;
+left: 0;
+width: 100%;
+background-color: var(--white);
+padding: 1rem;
+box-shadow: var(--shadow);
+gap: 1rem;
+}
+
+/* Hero Section */
+.hero-section {
+padding: 8rem 0 4rem;
+background-color: var(--secondary);
+position: relative;
+overflow: hidden;
+}
+
+.hero-content {
+max-width: 700px;
+margin: 0 auto;
+text-align: center;
+position: relative;
+z-index: 10;
+}
+
+.hero-title {
+margin-bottom: 1.5rem;
+color: var(--primary-dark);
+}
+
+.hero-description {
+font-size: 1.25rem;
+color: var(--text-secondary);
+margin-bottom: 2.5rem;
+}
+
+.hero-cta {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+max-width: 400px;
+margin: 0 auto;
+}
+
+.hero-shape {
+position: absolute;
+bottom: -50px;
+right: -100px;
+width: 500px;
+height: 500px;
+background-color: rgba(118, 133, 175, 0.1);
+border-radius: 50%;
+z-index: 1;
+}
+
+.hero-pattern {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: radial-gradient(var(--secondary-dark) 1px, transparent 1px);
+background-size: 20px 20px;
+opacity: 0.5;
+z-index: 1;
+}
+
+.catchphrase {
+display: block;
+text-align: center;
+font-size: 1.5rem;
+font-style: italic;
+color: var(--primary);
+max-width: 800px;
+margin: 2rem auto;
+padding: 1rem;
+border-top: 1px solid var(--border-color);
+border-bottom: 1px solid var(--border-color);
+}
+
+@media (min-width: 768px) {
+.hero-cta {
+flex-direction: row;
+justify-content: center;
+}
+
+.catchphrase {
+font-size: 1.75rem;
+}
+}
+
+/* Category Section Styles */
+.category-section {
+padding: 5rem 0;
+background-color: var(--white);
+}
+
+.section-header {
+text-align: center;
+max-width: 700px;
+margin: 0 auto 3rem;
+}
+
+.section-header p {
+font-size: 1.25rem;
+color: var(--text-secondary);
+}
+
+/* Categories Grid Styles */
+.categories-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 2rem;
+margin-bottom: 3rem;
+}
+
+.category-box {
+background-color: var(--white);
+border-radius: var(--radius);
+padding: 2rem;
+box-shadow: var(--shadow);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+border: 1px solid var(--border-color);
+cursor: pointer;
+position: relative;
+}
+
+.category-box:hover, .category-box.active {
+transform: translateY(-5px);
+box-shadow: var(--shadow-lg);
+border-color: var(--primary-light);
+}
+
+.category-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 60px;
+height: 60px;
+background-color: var(--secondary);
+border-radius: 50%;
+margin-bottom: 1.5rem;
+}
+
+.category-icon svg {
+width: 30px;
+height: 30px;
+color: var(--primary);
+}
+
+.category-box h3 {
+font-size: 1.5rem;
+margin-bottom: 0.75rem;
+color: var(--primary-dark);
+}
+
+.category-box p {
+color: var(--text-secondary);
+margin-bottom: 1.5rem;
+min-height: 4.5rem;
+}
+
+.category-stats {
+display: flex;
+gap: 1.5rem;
+margin-top: auto;
+}
+
+.stat-item {
+display: flex;
+flex-direction: column;
+}
+
+.stat-value {
+font-weight: 700;
+font-size: 1.125rem;
+color: var(--primary);
+}
+
+.stat-label {
+font-size: 0.875rem;
+color: var(--text-muted);
+}
+
+@media (min-width: 768px) {
+.categories-grid {
+grid-template-columns: repeat(3, 1fr); /* 3 boxes in a row */
+}
+}
+
+@media (min-width: 1024px) {
+.categories-grid {
+grid-template-columns: repeat(3, 1fr); /* 3 boxes in a row */
+}
+}
+
+/* Animation classes */
+.fade-in {
+animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-in {
+animation: slideIn 0.5s ease-out forwards;
+}
+
+.scale-in {
+animation: scaleIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+from {
+opacity: 0;
+}
+to {
+opacity: 1;
+}
+}
+
+@keyframes slideIn {
+from {
+transform: translateY(30px);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+
+@keyframes scaleIn {
+from {
+transform: scale(0.9);
+opacity: 0;
+}
+to {
+transform: scale(1);
+opacity: 1;
+}
+}
+
+.animate-delay-100 {
+animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+animation-delay: 500ms;
+}
+
+.animate-delay-600 {
+animation-delay: 600ms;
+}
+
+.animate-delay-700 {
+animation-delay: 700ms;
+}
+
+.animate-delay-800 {
+animation-delay: 800ms;
+}
+
+.toast {
+position: fixed;
+bottom: 2rem;
+right: 2rem;
+padding: 1rem;
+background-color: var(--primary-dark);
+color: var(--white);
+border-radius: var(--radius);
+box-shadow: var(--shadow-lg);
+z-index: 9999;
+transform: translateY(100px);
+opacity: 0;
+transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.toast.show {
+transform: translateY(0);
+opacity: 1;
+}
+
+/* Footer Styles (From Document Repository) */
+.footer {
+background-color: var(--primary-dark);
+color: var(--white);
+padding: 3rem 0 2rem;
+}
+
+.footer-bottom {
+padding-top: 2rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+text-align: center;
+}
+
+.footer-bottom p {
+color: rgba(255, 255, 255, 0.5);
+font-size: 0.875rem;
+margin-bottom: 0;
+}
+
+.contact-info {
+color: rgba(255, 255, 255, 0.7);
+margin-bottom: 1rem;
+}
+
+</style>
+</head>
+<body>
+
+<header class="navbar">
+<div class="container">
+<div class="navbar-content">
+<a href="homemp.html" class="logo">
+<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+<path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+<path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+</svg>
+ScholarVault
+</a>
+
+<button class="mobile-menu-btn">
+<i data-feather="menu"></i>
+</button>
+</div>
+</div>
+</header>
+
+<section class="hero-section">
+<div class="hero-pattern"></div>
+<div class="hero-shape"></div>
+<div class="container">
+<div class="hero-content fade-in">
+<h1 class="hero-title">Discover Your Perfect Scholarship Match</h1>
+<p class="hero-description">
+ScholarVault shows you scholarship categories to help you find and secure funding for your educational journey.
+</p>
+<div class="hero-cta">
+<a href="#categories" class="btn btn-primary btn-large">Browse Categories</a>
+</div>
+</div>
+</div>
+</section>
+
+<div class="container">
+<p class="catchphrase fade-in animate-delay-200">
+"Unlocking Potential, One Scholarship at a Time – Where Your Academic Dreams Find Their Funding"
+</p>
+</div>
+
+<section class="category-section" id="categories">
+<div class="container">
+<div class="section-header fade-in">
+<h2>Scholarship Categories</h2>
+<p>Browse scholarships by category to find your perfect match</p>
+</div>
+
+<div class="categories-grid">
+    <div class="category-box" onclick="redirectToScholarships('forgirls')">
+        <div class="category-icon"><i data-feather="user-check"></i></div>
+        <h3>For Girls</h3>
+        <p>Scholarships specifically designed for female students across all educational levels</p>
+    </div>
+
+    <div class="category-box" onclick="redirectToScholarships('sportstalent')">
+        <div class="category-icon"><i data-feather="award"></i></div>
+        <h3>Sports Talent</h3>
+        <p>For students with exceptional achievements in sports and athletics</p>
+    </div>
+
+    <div class="category-box" onclick="redirectToScholarships('minorities')">
+        <div class="category-icon"><i data-feather="book-open"></i></div>
+        <h3>Minorities</h3>
+        <p>Scholarships specifically for minority students.</p>
+    </div>
+
+    <div class="category-box" onclick="redirectToScholarships('scstobcdnt')">
+        <div class="category-icon"><i data-feather="users"></i></div>
+        <h3>SC/ST/OBC/DNT</h3>
+        <p>Reserved scholarships for students from scheduled and backward communities</p>
+    </div>
+
+    <div class="category-box" onclick="redirectToScholarships('meritbased')">
+        <div class="category-icon"><i data-feather="award"></i></div>
+        <h3>Merit Based</h3>
+        <p>Scholarships awarded based on academic excellence.</p>
+    </div>
+
+    <div class="category-box" onclick="redirectToScholarships('providers')">
+        <div class="category-icon"><i data-feather="book"></i></div>
+        <h3>Provider Scholarships</h3>
+        <p>Scholarships funded by organizations.</p>
+    </div>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div class="footer-content">
+<div class="contact-info mb-4">
+<h4>Contact Us</h4>
+<p>scholarvault@gmail.com</p>
+<p>6238280918</p>
+</div>
+</div>
+
+<div class="footer-bottom">
+<p>&copy; 2023 ScholarVault. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+feather.replace();
+function redirectToScholarships(category) {
+    window.location.href = `scholist.html?category=${category}`;
+}
+</script>
+</body>
+</html>

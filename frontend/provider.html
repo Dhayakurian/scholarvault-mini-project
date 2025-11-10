@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScholarVault - Provider Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        :root {
+            --primary: #4e5679;
+            --primary-light: #7685af;
+            --primary-dark: #21253a;
+            --secondary: #f5f7fa;
+            --secondary-dark: #ebeef3;
+            --text-primary: #21253a;
+            --text-secondary: #616c98;
+            --text-muted: #94a3c3;
+            --border-color: #ebeef3;
+            --white: #ffffff;
+            --radius: 0.5rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background-color: var(--secondary);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 30px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+       
+        .tab {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .scholarships-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .scholarship-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .scholarship-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .card-content {
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-meta {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-meta svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+        }
+
+        .status-active {
+            background-color: #ecfdf5;
+            color: #059669;
+        }
+
+        .form-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-field {
+            margin-bottom: 1rem;
+        }
+
+        .form-field.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.625rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(118, 133, 175, 0.2);
+        }
+
+        .form-description {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state p {
+            margin-top: 0.5rem;
+        }
+
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .contact-info {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info h4 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .contact-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+        /* New Table Styles */
+        .applications-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .applications-table th, .applications-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .applications-table th {
+            background-color: var(--secondary-dark);
+        }
+
+        .applications-table .view-application {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .applications-table .status-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .applications-table .status-options button {
+            padding: 4px 8px;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .applications-table .status-options .accept {
+            background-color: #ecfdf5;
+            color: #059669;
+        }
+
+        .applications-table .status-options .reject {
+            background-color: #fef2f2;
+            color: #ef4444;
+        }
+        .applications-table .view-application {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .applications-table .status-options button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="landinglovee.html" class="logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                    </svg>
+                    ScholarVault
+                </a>
+                <div class="header-actions">
+                    <span class="welcome-text">Welcome, Provider</span>
+                    <button id="logout-btn" class="btn btn-outline">Log Out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard">Dashboard</div>
+            <div class="tab" data-tab="review">Review Scholarship</div>
+            <div class="tab" data-tab="add">Add Scholarship</div>
+        </div>
+
+        <div id="dashboard-tab" class="tab-content active">
+            <div class="dashboard-header">
+                <h1 class="page-title">Your Scholarships</h1>
+                <button id="add-scholarship-btn" class="btn btn-primary">Add New</button>
+            </div>
+
+            <div id="scholarships-container" class="scholarships-grid"></div>
+            <div id="empty-state" class="empty-state">
+                <h3>No scholarships yet</h3>
+                <p>Start by adding your first scholarship</p>
+            </div>
+        </div>
+
+        <div id="review-tab" class="tab-content">
+            <h2>Applications</h2>
+            <table class="applications-table">
+                <thead>
+                    <tr>
+                        <th>Scholarship Name</th>
+                        <th>Applicant Name</th>
+                        <th>Application</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="applications-table-body"></tbody>
+            </table>
+        </div>
+
+        <div id="add-tab" class="tab-content">
+            <div class="form-card">
+                <h2 class="form-title">Create New Scholarship</h2>
+                <form id="scholarship-form">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="title" class="form-label">Scholarship Title</label>
+                            <input type="text" id="title" name="title" class="form-input" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="amount" class="form-label">Amount (₹)</label>
+                            <input type="number" id="amount" name="amount" min="1" class="form-input" required>
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="description" class="form-label">Description</label>
+                            <input type="text" id="description" name="description" class="form-input" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="applicationDeadline" class="form-label">Application Deadline</label>
+                            <input type="date" id="applicationDeadline" name="applicationDeadline" class="form-input">
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="eligibilityCriteria" class="form-label">Eligibility Criteria (JSON)</label>
+                            <input type="text" id="eligibilityCriteria" name="eligibilityCriteria" class="form-input" required placeholder='e.g. {"cgpa": 7.5, "gender": "female"}'>
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="requiredDocuments" class="form-label">Required Documents (JSON Array)</label>
+                            <input type="text" id="requiredDocuments" name="requiredDocuments" class="form-input" required placeholder='e.g. ["marksheet", "income_certificate"]'>
+                        </div>
+                        <!--<div class="form-field full-width">
+                            <label for="applicationLink" class="form-label">Application URL</label>
+                            <input type="url" id="applicationLink" name="applicationLink" class="form-input" placeholder="https://...">
+                        </div>-->
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-btn" class="btn btn-outline">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Scholarship</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact-info mb-4">
+                    <h4>Contact Us</h4>
+                    <p>scholarvault@gmail.com</p>
+                    <p>6238280918</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 ScholarVault. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        feather.replace();
+
+        // DOM Elements
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const addScholarshipBtn = document.getElementById('add-scholarship-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const scholarshipsContainer = document.getElementById('scholarships-container');
+        const emptyState = document.getElementById('empty-state');
+        const scholarshipForm = document.getElementById('scholarship-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const applicationsTableBody = document.getElementById('applications-table-body');
+
+        // Switch Tabs
+        function switchTab(tabId) {
+            tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabId));
+            tabContents.forEach(content => content.classList.toggle('active', content.id === `${tabId}-tab`));
+            if (tabId === 'review') loadApplications();
+        }
+
+        // Fetch and Render Scholarships
+        async function loadScholarships() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/provider/my_scholarships', {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    renderScholarships(result.data);
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load scholarships');
+            }
+        }
+
+        function renderScholarships(scholarships) {
+            scholarshipsContainer.innerHTML = '';
+            if (!scholarships || scholarships.length === 0) {
+                scholarshipsContainer.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            scholarshipsContainer.style.display = 'grid';
+            emptyState.style.display = 'none';
+
+            scholarships.forEach(s => {
+                const card = document.createElement('div');
+                card.className = 'scholarship-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">${s.name}</h3>
+                            <div class="card-subtitle">₹${s.amount.toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div class="card-content"><p>${s.description}</p></div>
+                    <div class="card-meta">
+                        <i data-feather="calendar"></i>
+                        <span>Deadline: ${s.deadline ? new Date(s.deadline).toLocaleDateString() : 'N/A'}</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="status-badge ${s.is_approved ? 'status-active' : ''}">
+                            ${s.is_approved ? 'Approved' : 'Pending'}
+                        </div>
+                    </div>
+                `;
+                scholarshipsContainer.appendChild(card);
+                feather.replace(); // Re-render icons
+            });
+        }
+
+        // Load Applications
+        async function loadApplications() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/provider/applications', {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    renderApplications(result.data);
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load applications');
+            }
+        }
+
+        async function fetchScholarshipName(scholarshipId) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/scholarships/${scholarshipId}?type=provider`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    return result.data.name;
+                }
+                return 'Unknown Scholarship';
+            } catch (error) {
+                console.error('Error fetching scholarship name:', error);
+                return 'Unknown Scholarship';
+            }
+        }
+
+        async function renderApplications(applications) {
+            applicationsTableBody.innerHTML = '';
+            if (!applications || applications.length === 0) {
+                applicationsTableBody.innerHTML = '<tr><td colspan="4">No applications yet</td></tr>';
+                return;
+            }
+
+            for (const app of applications) {
+                const scholarshipName = await fetchScholarshipName(app.scholarship_id);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${scholarshipName}</td>
+                    <td>${app.name || 'Unknown'}</td>
+                    <td><span class="view-application" data-id="${app.id}">View Application</span></td>
+                    <td>
+                        <div class="status-options">
+                            <span>${app.status}</span>
+                            ${app.status === 'pending' ? `
+                                <button class="accept" data-id="${app.id}">Accept</button>
+                                <button class="reject" data-id="${app.id}">Reject</button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+                applicationsTableBody.appendChild(row);
+            }
+
+            document.querySelectorAll('.view-application').forEach(btn => {
+                btn.addEventListener('click', () => viewApplication(btn.dataset.id));
+            });
+            document.querySelectorAll('.accept').forEach(btn => {
+                btn.addEventListener('click', () => reviewApplication(btn.dataset.id, 'accepted'));
+            });
+            document.querySelectorAll('.reject').forEach(btn => {
+                btn.addEventListener('click', () => reviewApplication(btn.dataset.id, 'rejected'));
+            });
+        }
+
+        // View Application
+        async function viewApplication(applicationId) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/provider/applications/${applicationId}`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert(JSON.stringify(result.data, null, 2));
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to view application');
+            }
+        }
+
+        // Review Application
+        async function reviewApplication(applicationId, status) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/provider/applications/${applicationId}/review`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert(`Application ${status}`);
+                    loadApplications();
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to review application');
+            }
+        }
+
+        // Event Listeners
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+        });
+
+        addScholarshipBtn.addEventListener('click', () => switchTab('add'));
+
+        cancelBtn.addEventListener('click', () => {
+            switchTab('dashboard');
+            scholarshipForm.reset();
+        });
+
+        scholarshipForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(scholarshipForm);
+            let eligibilityCriteria, requiredDocuments;
+            try {
+                eligibilityCriteria = JSON.parse(formData.get('eligibilityCriteria'));
+                requiredDocuments = JSON.parse(formData.get('requiredDocuments'));
+            } catch (error) {
+                alert('Eligibility Criteria and Required Documents must be valid JSON');
+                return;
+            }
+
+            const data = {
+                name: formData.get('title'),
+                description: formData.get('description'),
+                amount: Number(formData.get('amount')),
+                deadline: formData.get('applicationDeadline') || null,
+                eligibility_criteria: eligibilityCriteria,
+                required_documents: requiredDocuments,
+                //application_link: formData.get('applicationLink') || null
+            };
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/provider/scholarships', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Scholarship submitted for approval!');
+                    scholarshipForm.reset();
+                    switchTab('dashboard');
+                    loadScholarships();
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to submit scholarship');
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('providerScholarships');
+            window.location.href = 'landinglovee.html';
+        });
+
+        // Initial Load
+        loadScholarships();
+    });
+    </script>
+</body>
+</html>

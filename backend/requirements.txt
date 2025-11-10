@@ -1,0 +1,12 @@
+Flask
+Flask-Cors
+Flask-Mail
+Flask-Migrate
+Flask-Bcrypt
+Flask-SQLAlchemy
+psycopg2
+APScheduler
+python-dotenv
+pytz
+Werkzeug
+PyJWT

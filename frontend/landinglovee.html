@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScholarVault</title>
+    <meta name="description" content="Find, Apply, and Track Your Perfect Scholarships" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+      :root {
+        --primary: #4e5679;
+        --primary-light: #7685af;
+        --primary-dark: #21253a;
+        --secondary: #f5f7fa;
+        --secondary-dark: #ebeef3;
+        --text-primary: #21253a;
+        --text-secondary: #616c98;
+        --text-muted: #94a3c3;
+        --border-color: #ebeef3;
+        --white: #ffffff;
+        --radius: 0.5rem;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      
+      *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--text-primary);
+        scroll-behavior: smooth;
+      }
+      
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Merriweather', serif;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      h3 {
+        font-size: 1.5rem;
+      }
+      
+      p {
+        margin-bottom: 1rem;
+      }
+      
+      a {
+        color: var(--primary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      
+      a:hover {
+        color: var(--primary-light);
+      }
+      
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius);
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      
+      .btn-primary {
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+      }
+      
+      .btn-primary:hover {
+        background-color: var(--primary-light);
+        color: var(--white);
+      }
+      
+      .btn-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+      
+      .btn-outline:hover {
+        background-color: var(--secondary);
+      }
+      
+      .btn svg {
+        margin-left: 0.5rem;
+        width: 18px;
+        height: 18px;
+      }
+      
+      .hide-mobile {
+        display: none;
+      }
+      
+      @media (min-width: 768px) {
+        h1 {
+          font-size: 3.5rem;
+        }
+        
+        h2 {
+          font-size: 2.5rem;
+        }
+        
+        h3 {
+          font-size: 1.75rem;
+        }
+        
+        .hide-mobile {
+          display: inline;
+        }
+      }
+      
+      /* Navbar Styles */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+        box-shadow: var(--shadow-sm);
+        padding: 1rem 0;
+      }
+      
+      .navbar-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+      }
+      
+      .logo-icon {
+        margin-right: 8px;
+        color: var(--primary);
+      }
+      
+      .nav-links {
+        display: none;
+        align-items: center;
+        gap: 2rem;
+      }
+      
+      .nav-links a {
+        font-weight: 500;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--primary-dark);
+      }
+      
+      .mobile-menu-btn svg {
+        width: 24px;
+        height: 24px;
+      }
+      
+      @media (min-width: 768px) {
+        .nav-links {
+          display: flex;
+        }
+        
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+      
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        padding: 1rem;
+        box-shadow: var(--shadow);
+        gap: 1rem;
+      }
+      
+      /* Hero Section Styles */
+      .hero-section {
+        position: relative;
+        padding: 8rem 0 4rem;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+      
+      .bg-grid {
+        position: absolute;
+        inset: 0;
+        background-size: 30px 30px;
+        background-image: 
+          linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+        z-index: -2;
+      }
+      
+      .bg-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.3;
+        z-index: -1;
+      }
+      
+      .blob-1 {
+        top: 20%;
+        left: -10%;
+        width: 300px;
+        height: 300px;
+        background-color: rgba(118, 133, 175, 0.5);
+        animation: float 8s ease-in-out infinite;
+      }
+      
+      .blob-2 {
+        top: 10%;
+        right: -5%;
+        width: 250px;
+        height: 250px;
+        background-color: rgba(117, 95, 160, 0.3);
+        animation: float 7s ease-in-out infinite reverse;
+      }
+      
+      .blob-3 {
+        bottom: 15%;
+        left: 30%;
+        width: 200px;
+        height: 200px;
+        background-color: rgba(78, 86, 121, 0.4);
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      .hero-content {
+        max-width: 600px;
+        margin-bottom: 2rem;
+      }
+      
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background-color: var(--secondary);
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+      
+      .badge-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--primary);
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }
+      
+      .hero-title {
+        margin-bottom: 1.5rem;
+      }
+      
+      .highlight {
+        color: var(--primary);
+      }
+      
+      .hero-description {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+      
+      .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .hero-features {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .hero-feature {
+        display: flex;
+        align-items: center;
+      }
+      
+      .hero-feature svg {
+        width: 20px;
+        height: 20px;
+        color: var(--primary);
+        margin-right: 0.75rem;
+        flex-shrink: 0;
+      }
+      
+      .hero-feature p {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        margin-bottom: 0;
+      }
+      
+      .hero-image {
+        position: relative;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      
+      .browser-mockup {
+        width: 100%;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-xl);
+        background-color: var(--white);
+        border: 1px solid var(--border-color);
+      }
+      
+      .browser-header {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        background-color: var(--secondary);
+        display: flex;
+        align-items: center;
+      }
+      
+      .browser-dots {
+        display: flex;
+        gap: 6px;
+      }
+      
+      .browser-dots span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      
+      .browser-dots span:nth-child(1) {
+        background-color: #ff5f56;
+      }
+      
+      .browser-dots span:nth-child(2) {
+        background-color: #ffbd2e;
+      }
+      
+      .browser-dots span:nth-child(3) {
+        background-color: #27c93f;
+      }
+      
+      .browser-content {
+        padding: 1.5rem;
+        background: linear-gradient(180deg, var(--secondary) 0%, var(--white) 100%);
+        min-height: 300px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1rem;
+      }
+      
+      .shimmer-placeholder {
+        width: 100%;
+        height: 100px;
+        background-color: rgba(225, 225, 225, 0.3);
+        border-radius: var(--radius);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .shimmer-placeholder::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.2) 20%,
+          rgba(255, 255, 255, 0.5) 60%,
+          rgba(255, 255, 255, 0)
+        );
+        animation: shimmer 2s infinite;
+      }
+      
+      .shimmer-placeholder-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      
+      @keyframes shimmer {
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+      
+      @media (min-width: 768px) {
+        .hero-buttons {
+          flex-direction: row;
+        }
+        
+        .hero-features {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      
+      /* Section Styles */
+      .about-section,
+      .documents-section,
+      .calculator-section {
+        padding: 5rem 0;
+      }
+      
+      .about-section {
+        background-color: var(--white);
+      }
+      
+      .documents-section {
+        background-color: var(--secondary);
+        position: relative;
+      }
+      
+      .calculator-section {
+        background-color: var(--white);
+        position: relative;
+      }
+      
+      .section-header {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 3rem;
+      }
+      
+      .section-header p {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+      }
+      
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+      
+      .about-image {
+        position: relative;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+      
+      .about-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      .about-text h3 {
+        margin-top: 1.5rem;
+      }
+      
+      .feature-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+      
+      .feature-card {
+        background-color: var(--white);
+        border-radius: var(--radius);
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+      
+      .feature-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--secondary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      .feature-icon svg {
+        width: 24px;
+        height: 24px;
+        color: var(--primary);
+      }
+      
+      .cta-block {
+        background-color: var(--primary);
+        border-radius: var(--radius);
+        padding: 3rem 2rem;
+        text-align: center;
+        color: var(--white);
+        box-shadow: var(--shadow-lg);
+      }
+      
+      .cta-block h3 {
+        color: var(--white);
+      }
+      
+      .cta-block p {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1.5rem;
+      }
+      
+      .cta-block .btn-primary {
+        background-color: var(--white);
+        color: var(--primary);
+      }
+      
+      .cta-block .btn-primary:hover {
+        background-color: var(--secondary);
+      }
+      
+      @media (min-width: 768px) {
+        .about-content {
+          grid-template-columns: 1fr 1fr;
+        }
+        
+        .feature-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .cta-block {
+          padding: 4rem;
+        }
+      }
+      
+      /* Footer Styles */
+     
+      .footer-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+      
+      .footer-brand p {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1.5rem;
+      }
+      
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+      }
+      
+      .social-links a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      
+      .social-links svg {
+        width: 20px;
+        height: 20px;
+        color: var(--white);
+      }
+      
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 2rem;
+      }
+      
+      .link-group h4 {
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        color: var(--white);
+      }
+      
+      .link-group a {
+        display: block;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.75rem;
+        transition: color 0.3s ease;
+      }
+      
+      .link-group a:hover {
+        color: var(--white);
+      }
+      
+     /* Footer Styles */
+.footer {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 3rem 0 2rem;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  margin-bottom: 0;
+}
+
+.contact-info {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+      
+      @media (min-width: 768px) {
+        .footer-content {
+          grid-template-columns: 1fr 2fr;
+        }
+      }
+      
+      /* Animation Classes */
+      .animate-fade-in-up {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s ease-out forwards;
+        animation-delay: calc(var(--animation-order, 0) * 0.1s);
+      }
+      
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      
+      .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Set animation order for hero elements */
+      .badge {
+        --animation-order: 1;
+      }
+      
+      .hero-title {
+        --animation-order: 2;
+      }
+      
+      .hero-description {
+        --animation-order: 3;
+      }
+      
+      .hero-buttons {
+        --animation-order: 4;
+      }
+      
+      .hero-features {
+        --animation-order: 5;
+      }
+      
+      .hero-image {
+        --animation-order: 6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="navbar">
+      <div class="container">
+        <div class="navbar-content">
+          <a href="landinglov.html" class="logo">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+            </svg>
+            ScholarVault
+          </a>
+          <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="adminloginlov.html" class="btn btn-primary">Admin Login</a>
+            <a href="loginstud.html" class="btn btn-primary">Student Login</a>
+            <a href="providerlog.html" class="btn btn-primary">Scholarship Provider Login</a>
+          </nav>
+          <button class="mobile-menu-btn">
+            <i data-feather="menu"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero-section" id="hero">
+      <div class="bg-grid"></div>
+      <div class="bg-blob blob-1"></div>
+      <div class="bg-blob blob-2"></div>
+      <div class="bg-blob blob-3"></div>
+      
+      <div class="container">
+        <div class="hero-content">
+          <div class="badge animate-fade-in-up">
+            <span class="badge-dot"></span>
+            Revolutionizing Scholarship Applications
+          </div>
+          
+          <h1 class="hero-title animate-fade-in-up">
+            Find, and Research <br class="hide-mobile">
+            <span class="highlight">Your Perfect Scholarships</span>
+          </h1>
+          
+          <p class="hero-description animate-fade-in-up">
+            ScholarVault streamlines your journey to educational funding, helping you discover scholarships you're eligible for, store essential documents, and calculate potential savings.
+          </p>
+          
+          <div class="hero-buttons animate-fade-in-up">
+            <a href="signupstud.html" class="btn btn-primary">
+              Get Started Free
+              <i data-feather="arrow-right"></i>
+            </a>
+            
+          </div>
+          
+          <div class="hero-features animate-fade-in-up">
+            <div class="hero-feature">
+              <i data-feather="check-circle"></i>
+              <p>Find scholarships tailored to you</p>
+            </div>
+            <div class="hero-feature">
+              <i data-feather="check-circle"></i>
+              <p>Store all your documents securely</p>
+            </div>
+            <div class="hero-feature">
+              <i data-feather="check-circle"></i>
+              <p>Calculate your educational savings</p>
+            </div>
+          </div>
+        </div>
+        
+        
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2>About ScholarVault</h2>
+          <p>Your all-in-one solution for educational funding</p>
+        </div>
+        
+        <div class="about-content">
+          <div class="about-image animate-on-scroll">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="Students collaborating">
+          </div>
+          
+          <div class="about-text animate-on-scroll">
+            <h3>Our Mission</h3>
+            <p>At ScholarVault, we believe that financial barriers should never stand in the way of education. Our platform is designed to simplify the complex process of finding and applying for scholarships, making educational funding accessible to all students.</p>
+            
+            <h3>Our Approach</h3>
+            <p>We combine cutting-edge technology with user-centered design to create a seamless experience for students. Our platform matches you with scholarships you're actually eligible for, helps you organize your application materials, and provides tools to track your financial goals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="documents-section" id="documents">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2>DocVault</h2>
+          <p>Keep your application materials organized and secure</p>
+        </div>
+        
+        <div class="feature-grid">
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i data-feather="lock"></i>
+            </div>
+            <h3>Bank-level Security</h3>
+            <p>Your documents are encrypted and protected with the highest level of security standards. We use end-to-end encryption to ensure your personal information stays private.</p>
+          </div>
+          
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i data-feather="save"></i>
+            </div>
+            <h3>Local Storage Support</h3>
+            <p>Keep your documents offline but easily accessible with our local storage solution. Perfect for those who prefer to maintain control over their data while still using our organization tools.</p>
+          </div>
+          
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i data-feather="file-text"></i>
+            </div>
+            <h3>Smart Organization</h3>
+            <p>Our intelligent system helps you categorize and find documents quickly. Never scramble for application materials again with our intuitive file management system.</p>
+          </div>
+        </div>
+        
+        <div class="cta-block animate-on-scroll">
+          <h3>Never scramble for application materials again</h3>
+          <p>Store all your documents in one place and access them whenever you need them.</p>
+          <a href="signupstud.html" class="btn btn-primary">Start Storing Documents</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="calculator-section" id="calculator">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2>BenefitMeter</h2>
+          <p>Understand the impact of scholarships on your financial future</p>
+        </div>
+        
+        <div class="feature-grid">
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i data-feather="bar-chart-2"></i>
+            </div>
+            <h3>Financial Projections</h3>
+            <p>Visualize how scholarships reduce your educational costs and student loan burden with our detailed financial projections that show both short-term and long-term impacts.</p>
+          </div>
+          
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i data-feather="award"></i>
+            </div>
+            <h3>Scholarship Matching</h3>
+            <p>Our advanced algorithm matches you with scholarships that align with your academic profile, interests, and qualifications to maximize your chances of receiving funding.</p>
+          </div>
+          
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i data-feather="pie-chart"></i>
+            </div>
+            <h3>Savings Insights</h3>
+            <p>Get personalized insights on maximizing your educational savings. Our analytics provide recommendations tailored to your specific financial situation.</p>
+          </div>
+        </div>
+        
+        <div class="cta-block animate-on-scroll">
+          <h3>See how much you could save on your education</h3>
+          <p>Our intelligent calculator helps you understand how scholarships impact your educational finances and long-term savings.</p>
+          <a href="signupstud.html" class="btn btn-primary">Try BenefitMeter</a>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="contact-info mb-4">
+            <h4>Contact Us</h4>
+            <p>scholarvault@gmail.com</p>
+            <p>6238280918</p>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>&copy; 2023 ScholarVault. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Feather icons
+        feather.replace();
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+          navLinks.classList.toggle('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80, // Adjust for navbar height
+                behavior: 'smooth'
+              });
+              
+              // Close mobile menu if open
+              navLinks.classList.remove('active');
+            }
+          });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+        
+        animateElements.forEach(element => {
+          observer.observe(element);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - ScholarVault</title>
+    <meta name="description" content="Create your ScholarVault account to find scholarships tailored to your profile" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #4e5679;
+            --primary-light: #7685af;
+            --primary-dark: #21253a;
+            --secondary: #f5f7fa;
+            --secondary-dark: #ebeef3;
+            --text-primary: #21253a;
+            --text-secondary: #616c98;
+            --text-muted: #94a3c3;
+            --border-color: #ebeef3;
+            --white: #ffffff;
+            --radius: 0.5rem;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+            background-color: var(--secondary);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-light);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-dark);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn svg {
+            margin-left: 0.5rem;
+            width: 18px;
+            height: 18px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-8 {
+            margin-top: 2rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .hide-mobile {
+            display: none;
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .text-success {
+            color: var(--success);
+        }
+
+        .text-error {
+            color: var(--error);
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            h3 {
+                font-size: 1.75rem;
+            }
+
+            .hide-mobile {
+                display: inline;
+            }
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+        }
+
+        .navbar-content {
+    display: flex;
+    justify-content: space-between; /* Add this line */
+    align-items: center;
+}
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+  margin-right: 0.5rem;
+  color: var(--primary);
+}
+
+        .nav-links {
+    /* Remove margin-left: auto; */
+    display: flex; /* Add this line to ensure the login button is inline */
+    align-items: center; /* Add this for vertical alignment */
+}
+        .btn-primary {
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: var(--primary-dark);
+            color: white;
+            border-radius: 5px;
+        }
+        .nav-links a {
+            font-weight: 500;
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-dark);
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        .nav-links.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            gap: 1rem;
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-description {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .form-section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(118, 133, 175, 0.1);
+        }
+
+        .form-text {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input {
+            margin-right: 0.5rem;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-item input {
+            margin-right: 0.5rem;
+        }
+
+        .invalid-feedback {
+            display: none;
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .is-invalid {
+            border-color: var(--error);
+        }
+
+        .is-invalid + .invalid-feedback {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 3rem 0 2rem;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  margin-bottom: 0;
+}
+
+.contact-info {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+       
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem;
+            background-color: var(--primary-dark);
+            color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+       
+
+        .contact-info i {
+            margin-right: 0.5rem;
+            color: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+
+                <a href="landinglovee.html" class="logo">
+                  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+                  </svg>
+                    ScholarVault
+                </a>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: 6rem; padding-bottom: 3rem;">
+        <div class="form-container">
+            <div class="form-header">
+                <h1>Create Your ScholarVault Account</h1>
+                <p class="form-description">Join thousands of students finding scholarships tailored to their profile. Fill out the information below to get started.</p>
+            </div>
+
+            <form id="signup-form">
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="section-number">1</div>
+                        <h3 class="section-title">Personal Information</h3>
+                    </div>
+            
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="full_name" class="form-label">Full Name *</label>
+                            <input type="text" id="full_name" class="form-control" required>
+                            <div class="invalid-feedback">Please enter your full name</div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password *</label>
+                            <div class="input-group">
+                                <input type="password" id="password" class="form-control" required>
+                                <i data-feather="lock" class="input-icon"></i>
+                            </div>
+                            <div class="invalid-feedback">Please enter a password</div>
+                        </div>
+                    </div>
+            
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <div class="input-group">
+                                <input type="email" id="email" class="form-control" required>
+                                <i data-feather="mail" class="input-icon"></i>
+                            </div>
+                            <div class="invalid-feedback">Please enter a valid email address</div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number *</label>
+                            <div class="input-group">
+                                <input type="tel" id="phone" class="form-control" required>
+                                <i data-feather="phone" class="input-icon"></i>
+                            </div>
+                            <div class="invalid-feedback">Please enter a valid phone number</div>
+                        </div>
+                        </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="dob" class="form-label">Date of Birth *</label>
+                            <input type="date" id="dob" class="form-control" required>
+                            <div class="invalid-feedback">Please enter your date of birth</div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label class="form-label">Gender *</label>
+                            <div class="radio-group">
+                                <label class="radio-item">
+                                    <input type="radio" name="gender" value="male" required> Male
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="gender" value="female"> Female
+                                </label>
+                                <label class="radio-item">
+                                    <input type="radio" name="gender" value="other"> Other
+                                </label>
+                            </div>
+                            <div class="invalid-feedback">Please select your gender</div>
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="state" class="form-label">State/Province *</label>
+                        <select id="state" class="form-control" required>
+                            <option value="">Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Ladakh">Ladakh</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
+                        </select>
+                        <div class="invalid-feedback">Please select your state</div>
+                    </div>
+                </div>
+            
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="section-number">2</div>
+                        <h3 class="section-title">Academic Details</h3>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="education_level" class="form-label">Current Education Level *</label>
+                        <select id="education_level" class="form-control" required>
+                            <option value="">Select Education Level</option>
+                            <option value="undergraduate">Undergraduate</option>
+                            <option value="postgraduate">Postgraduate</option>
+                        </select>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="field_of_study" class="form-label">Field of Study/Major *</label>
+                        <select id="field_of_study" class="form-control" required>
+                            <option value="">Select Field</option>
+                            <optgroup label="Science & Technology">
+                                <option value="computer-science">Computer Science</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="mathematics">Mathematics</option>
+                                <option value="physics">Physics</option>
+                                <option value="chemistry">Chemistry</option>
+                                <option value="biology">Biology</option>
+                            </optgroup>
+                            <optgroup label="Arts & Humanities">
+                                <option value="literature">Literature</option>
+                                <option value="history">History</option>
+                                <option value="philosophy">Philosophy</option>
+                                <option value="languages">Languages</option>
+                                <option value="fine-arts">Fine Arts</option>
+                            </optgroup>
+                            <optgroup label="Commerce & Management">
+                                <option value="business">Business Administration</option>
+                                <option value="economics">Economics</option>
+                                <option value="accounting">Accounting</option>
+                                <option value="finance">Finance</option>
+                            </optgroup>
+                            <optgroup label="Healthcare">
+                                <option value="medicine">Medicine</option>
+                                <option value="nursing">Nursing</option>
+                                <option value="pharmacy">Pharmacy</option>
+                                <option value="public-health">Public Health</option>
+                            </optgroup>
+                        </select>
+                    </div>
+            
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="institution" class="form-label">Current Institution *</label>
+                            <input type="text" id="institution" class="form-control" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="enrollment_year" class="form-label">Year of Enrollment *</label>
+                            <input type="number" id="enrollment_year" class="form-control" min="2000" max="2024" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="cgpa" class="form-label">Current CGPA/Percentage *</label>
+                            <input type="number" id="cgpa" class="form-control" min="0" max="100" step="0.01" required>
+                            <span class="form-text">Enter percentage if CGPA is not applicable</span>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="twelfth_percentage" class="form-label">12th Standard Percentage *</label>
+                            <input type="number" id="twelfth_percentage" class="form-control" min="0" max="100" step="0.01" required>
+                            <span class="form-text">Enter your 12th standard percentage</span>
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="competitive_exams" class="form-label">Competitive Exams</label>
+                        <select id="competitive_exams" class="form-control" multiple>
+                            <optgroup label="National-Level Exams (UG & PG)">
+                                <option value="jee-mains">JEE Mains</option>
+                                <option value="jee-advanced">JEE Advanced</option>
+                                <option value="neet-ug">NEET UG</option>
+                                <option value="neet-pg">NEET PG</option>
+                                <option value="cuet-ug">CUET UG</option>
+                                <option value="clat-ug">CLAT UG</option>
+                                <option value="clat-pg">CLAT PG</option>
+                                <option value="cat">CAT</option>
+                                <option value="upsc-cse">UPSC CSE</option>
+                                <option value="ugc-net">UGC-NET</option>
+                            </optgroup>
+                            <optgroup label="State-Level Exams">
+                                <option value="mht-cet">MHT CET</option>
+                                <option value="kcet">KCET</option>
+                                <option value="keam">KEAM</option>
+                                <option value="ts-ap-eamcet">TS/AP EAMCET</option>
+                                <option value="wbjee">WBJEE</option>
+                            </optgroup>
+                        </select>
+                        <span class="form-text">Hold Ctrl/Cmd to select multiple exams</span>
+                    </div>
+                </div>
+            
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <div class="section-number">3</div>
+                        <h3 class="section-title">Additional Information</h3>
+                    </div>
+            
+                    <div class="form-group">
+                        <label class="form-label">Category *</label>
+                        <div class="radio-group">
+                            
+                            <label class="radio-item">
+                                <input type="radio" name="category" value="general" required> General
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="category" value="sc"> SC
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="category" value="st"> ST
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="category" value="obc"> OBC
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="category" value="ews"> EWS
+                            </label>
+                        </div>
+                        <div class="invalid-feedback">Please select your category</div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label class="form-label">Family Income (Annual) *</label>
+                        <select id="family_income" class="form-control" required> <!-- Added id="family_income" -->
+                            <option value="">Select Income Range</option>
+                            <option value="below-1l">Below ₹1,00,000</option>
+                            <option value="1l-3l">₹1,00,000 - ₹3,00,000</option>
+                            <option value="3l-6l">₹3,00,000 - ₹6,00,000</option>
+                            <option value="6l-10l">₹6,00,000 - ₹10,00,000</option>
+                            <option value="above-10l">Above ₹10,00,000</option>
+                        </select>
+                        <div class="invalid-feedback">Please select your family income range</div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label class="form-label">Special Categories</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="special-category" value="pwd"> Person with Disability (PwD)
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="special-category" value="single-girl-child"> Single Girl Child
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="special-category" value="sports"> Sports Excellence
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="special-category" value="rural"> Rural Background
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="special-category" value="orphan"> Orphan / Child of a Single Parent
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="special-category" value="defense"> Defense / Ex-Servicemen Quota
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="special-category" value="minority"> Minority Community (Muslim, Sikh, Christian, etc.)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            <div id="toast"></div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" required>
+                            I hereby declare that all the information provided is true to the best of my knowledge
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large btn-full" style="font-size: 1.25rem; padding: 1rem 2rem;">
+                        Sign Up
+                        <i data-feather="check"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Form submitted successfully!</div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="contact-info mb-4">
+            <h4>Contact Us</h4>
+            <p>scholarvault@gmail.com</p>
+            <p>6238280918</p>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>&copy; 2023 ScholarVault. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+  <!-- Import the GPT Engineer script for "Select" feature -->
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  
+  <script>
+    // Initialize Feather icons
+    document.addEventListener('DOMContentLoaded', function() {
+        feather.replace();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        // Form submission for signup
+        const form = document.getElementById('signup-form');
+        if (form) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Collect form data
+                const formData = {
+                    full_name: document.getElementById('full_name')?.value || '',
+                    password: document.getElementById('password')?.value || '',
+                    email: document.getElementById('email')?.value || '',
+                    phone: document.getElementById('phone')?.value || '',
+                    dob: document.getElementById('dob')?.value || '',
+                    gender: document.querySelector('input[name="gender"]:checked')?.value || '',
+                    state: document.getElementById('state')?.value || '',
+                    education_level: document.getElementById('education_level')?.value || '',
+                    field_of_study: document.getElementById('field_of_study')?.value || '',
+                    institution: document.getElementById('institution')?.value || '',
+                    enrollment_year: document.getElementById('enrollment_year')?.value || '',
+                    cgpa: document.getElementById('cgpa')?.value || '',
+                    twelfth_percentage: document.getElementById('twelfth_percentage')?.value || '',
+                    category: document.querySelector('input[name="category"]:checked')?.value || '',
+                    family_income: document.getElementById('family_income')?.value || '',
+                    competitive_exams: Array.from(document.getElementById('competitive_exams')?.selectedOptions || [])
+                        .map(option => option.value) || [],
+                    special_categories: Array.from(document.querySelectorAll('input[name="special-category"]:checked') || [])
+                        .map(checkbox => checkbox.value) || []
+                };
+
+                // Log form data for debugging
+                console.log('Form data sent:', formData);
+
+                // Custom validation for required fields
+                const requiredFields = [
+                    'full_name', 'password', 'email', 'phone', 'dob', 'gender', 'state',
+                    'education_level', 'field_of_study', 'institution', 'enrollment_year',
+                    'cgpa', 'twelfth_percentage', 'category', 'family_income'
+                ];
+                const missingFields = requiredFields.filter(field => !formData[field]);
+                if (missingFields.length > 0) {
+                    showToast(`Please fill in the following required fields: ${missingFields.join(', ')}`);
+                    return;
+                }
+
+                // Client-side validation using HTML5
+                if (!form.checkValidity()) {
+                    showToast('Please fill in all required fields');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+                    console.log("Signup response:", result);
+
+                    if (response.ok) {
+                        showToast('Signup successful! Redirecting to login...');
+                        setTimeout(() => {
+                            window.location.href = 'loginstud.html';
+                        }, 2000);
+                    } else {
+                        showToast(result.message || 'Signup failed');
+                    }
+                } catch (error) {
+                    console.error('Signup error:', error.message);
+                    showToast(`An error occurred: ${error.message}`);
+                }
+            });
+        }
+    });
+
+    // **ADD THE FOLLOWING SCRIPT HERE**
+    const phoneInput = document.getElementById('phone');
+
+    if (phoneInput) {
+        phoneInput.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.value = '+91';
+            }
+        });
+
+        phoneInput.addEventListener('blur', function() {
+            if (this.value === '+91') {
+                this.value = ''; // Optionally clear if only the prefix is entered
+            }
+        });
+    }
+
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(event) {
+            const phoneNumber = document.getElementById('phone')?.value || '';
+            if (!phoneNumber.startsWith('+91')) {
+                event.preventDefault();
+                showToast('Phone number must start with +91');
+            }
+            // Add more validation if needed for the rest of the phone number format
+        });
+    }
+
+    // Toast notification
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        if (toast) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        } else {
+            console.error('Toast element not found');
+        }
+    }
+</script>

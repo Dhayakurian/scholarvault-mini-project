@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scholarship Opportunities - ScholarVault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+/* Base Styles */
+:root {
+--primary: #4e5679;
+--primary-light: #7685af;
+--primary-dark: #21253a;
+--secondary: #f5f7fa;
+--secondary-dark: #ebeef3;
+--text-primary: #21253a;
+--text-secondary: #616c98;
+--text-muted: #94a3c3;
+--border-color: #ebeef3;
+--white: #ffffff;
+--radius: 0.5rem;
+--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+*, *::before, *::after {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html, body {
+font-family: 'Raleway', sans-serif;
+font-size: 16px;
+line-height: 1.5;
+color: var(--text-primary);
+scroll-behavior: smooth;
+background-color: var(--white);
+}
+
+.container {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Playfair Display', serif;
+font-weight: 700;
+line-height: 1.2;
+margin-bottom: 1rem;
+}
+
+h1 {
+font-size: 2.5rem;
+}
+
+h2 {
+font-size: 2rem;
+}
+
+h3 {
+font-size: 1.5rem;
+}
+
+p {
+margin-bottom: 1rem;
+}
+
+a {
+color: var(--primary);
+text-decoration: none;
+transition: color 0.3s ease;
+}
+
+a:hover {
+color: var(--primary-light);
+}
+
+.btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: 0.75rem 1.5rem;
+border-radius: var(--radius);
+font-weight: 600;
+transition: all 0.3s ease;
+cursor: pointer;
+font-size: 1rem;
+}
+
+.btn-primary {
+background-color: var(--primary);
+color: var(--white);
+border: none;
+}
+
+.btn-primary:hover {
+background-color: var(--primary-light);
+color: var(--white);
+}
+
+.btn-large {
+padding: 1rem 2rem;
+font-size: 1.125rem;
+}
+
+.text-center {
+text-align: center;
+}
+
+@media (min-width: 768px) {
+h1 {
+font-size: 3.5rem;
+}
+
+h2 {
+font-size: 2.5rem;
+}
+
+h3 {
+font-size: 1.75rem;
+}
+}
+
+/* Navbar Styles */
+.navbar {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(5px);
+z-index: 1000;
+box-shadow: var(--shadow-sm);
+padding: 1rem 0;
+}
+
+.navbar-content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-family: 'Playfair Display', serif;
+font-size: 1.5rem;
+font-weight: 700;
+color: var(--primary-dark);
+display: flex;
+align-items: center;
+}
+
+.logo-icon {
+margin-right: 8px;
+color: var(--primary);
+}
+
+.mobile-menu-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+background: none;
+border: none;
+cursor: pointer;
+color: var(--primary-dark);
+}
+
+.mobile-menu-btn svg {
+width: 24px;
+height: 24px;
+}
+
+/* Hero Section */
+.hero-section {
+padding: 8rem 0 4rem;
+background-color: var(--secondary);
+position: relative;
+overflow: hidden;
+}
+
+.hero-content {
+max-width: 700px;
+margin: 0 auto;
+text-align: center;
+position: relative;
+z-index: 10;
+}
+
+.hero-title {
+margin-bottom: 1.5rem;
+color: var(--primary-dark);
+}
+
+.hero-description {
+font-size: 1.25rem;
+color: var(--text-secondary);
+margin-bottom: 2.5rem;
+}
+
+.hero-shape {
+position: absolute;
+bottom: -50px;
+right: -100px;
+width: 500px;
+height: 500px;
+background-color: rgba(118, 133, 175, 0.1);
+border-radius: 50%;
+z-index: 1;
+}
+
+.hero-pattern {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: radial-gradient(var(--secondary-dark) 1px, transparent 1px);
+background-size: 20px 20px;
+opacity: 0.5;
+z-index: 1;
+}
+
+.catchphrase {
+display: block;
+text-align: center;
+font-size: 1.5rem;
+font-style: italic;
+color: var(--primary);
+max-width: 800px;
+margin: 2rem auto;
+padding: 1rem;
+border-top: 1px solid var(--border-color);
+border-bottom: 1px solid var(--border-color);
+}
+
+/* Scholarship Section Styles */
+.scholarship-section {
+padding: 5rem 0;
+background-color: var(--white);
+}
+
+.section-header {
+text-align: center;
+max-width: 700px;
+margin: 0 auto 3rem;
+}
+
+.section-header p {
+font-size: 1.25rem;
+color: var(--text-secondary);
+}
+
+/* Scholarship Grid Styles */
+.scholarship-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 2rem;
+margin-bottom: 3rem;
+}
+
+.scholarship-box {
+background-color: var(--white);
+border-radius: var(--radius);
+padding: 2rem;
+box-shadow: var(--shadow);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+border: 1px solid var(--border-color);
+cursor: pointer;
+position: relative;
+}
+
+.scholarship-box:hover {
+transform: translateY(-5px);
+box-shadow: var(--shadow-lg);
+border-color: var(--primary-light);
+}
+
+.scholarship-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 60px;
+height: 60px;
+background-color: var(--secondary);
+border-radius: 50%;
+margin-bottom: 1.5rem;
+}
+
+.scholarship-icon svg {
+width: 30px;
+height: 30px;
+color: var(--primary);
+}
+
+.scholarship-box h3 {
+font-size: 1.5rem;
+margin-bottom: 0.75rem;
+color: var(--primary-dark);
+}
+
+.scholarship-details {
+margin-top: 1.5rem;
+border-top: 1px solid var(--border-color);
+padding-top: 1.5rem;
+}
+/* Animation classes */
+.fade-in {
+animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-in {
+animation: slideIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+from {
+opacity: 0;
+}
+to {
+opacity: 1;
+}
+}
+
+@keyframes slideIn {
+from {
+transform: translateY(30px);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+
+.animate-delay-100 {
+animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+animation-delay: 500ms;
+}
+
+.animate-delay-600 {
+animation-delay: 600ms;
+}
+
+.animate-delay-700 {
+animation-delay: 700ms;
+}
+
+/* Footer Styles */
+.footer {
+background-color: var(--primary-dark);
+color: var(--white);
+padding: 3rem 0 2rem;
+}
+
+.footer-bottom {
+padding-top: 2rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+text-align: center;
+}
+
+.footer-bottom p {
+color: rgba(255, 255, 255, 0.5);
+font-size: 0.875rem;
+margin-bottom: 0;
+}
+
+.contact-info {
+color: rgba(255, 255, 255, 0.7);
+margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+.scholarship-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media (min-width: 1024px) {
+.scholarship-grid {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+<div class="container">
+<div class="navbar-content">
+<a href="scholomatch.html" class="logo">
+<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+<path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+<path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+</svg>
+ScholarVault
+</a>
+
+</div>
+</div>
+</header>
+
+<section class="scholarship-section" id="scholarships">
+<div class="container">
+<div class="section-header fade-in">
+<h2>Available Scholarships</h2>
+<p>Explore these prestigious scholarship opportunities</p>
+</div>
+
+<div class="scholarship-grid">
+
+
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div class="footer-content">
+<div class="contact-info mb-4">
+<h4>Contact Us</h4>
+<p>scholarvault@gmail.com</p>
+<p>6238280918</p>
+</div>
+</div>
+
+<div class="footer-bottom">
+<p>&copy; 2025 ScholarVault. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Initialize Feather icons
+    feather.replace();
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Get category from URL and fetch scholarships
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get("category");
+
+    if (category) {
+        fetchScholarships(category);
+    }
+
+    // Check deadlines after scholarships are loaded
+    setTimeout(checkDeadlines, 1000);
+});
+
+function fetchScholarships(category) {
+    const token = localStorage.getItem("token");
+    console.log("Token:", token);
+    if (!token) {
+        document.querySelector(".scholarship-grid").innerHTML = "<p>Please log in to view scholarships.</p>";
+        return;
+    }
+
+    const backendUrl = "http://127.0.0.1:5000";
+    console.log("Fetching from:", `${backendUrl}/scholarships/${category}`);
+    fetch(`${backendUrl}/scholarships/${category}`, {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        console.log("Response status:", response.status);
+        if (!response.ok) {
+            return response.json().then(err => { 
+                throw new Error(err.message || `HTTP error! status: ${response.status}`); 
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("API Response:", data);
+        if (data.status === "success") {
+            displayScholarships(data.data);
+        } else {
+            document.querySelector(".scholarship-grid").innerHTML = `<p>${data.message}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error("Fetch error:", error.message);
+        let displayMessage;
+        switch (error.message) {
+            case "Unauthorized: User access required":
+                displayMessage = "Please log in to view scholarships.";
+                break;
+            case "Invalid category":
+                displayMessage = "The selected category is invalid.";
+                break;
+            case "User not found":
+                displayMessage = "User not found. Please log in again.";
+                break;
+            default:
+                displayMessage = "An error occurred while loading scholarships. Please try again later.";
+        }
+        document.querySelector(".scholarship-grid").innerHTML = `<p>${displayMessage}</p>`;
+    });
+}
+
+function displayScholarships(scholarships) {
+    const container = document.querySelector(".scholarship-grid");
+    container.innerHTML = "";
+
+    if (!scholarships || scholarships.length === 0) {
+        container.innerHTML = "<p>No scholarships available for this category.</p>";
+        return;
+    }
+
+    const currentDate = new Date();
+
+    scholarships.forEach((scholarship, index) => {
+        console.log("Scholarship object:", scholarship); // Debug log
+        const div = document.createElement("div");
+        div.classList.add("scholarship-box");
+        div.classList.add(`fade-in`);
+        div.classList.add(`animate-delay-${index * 100}`);
+        let deadlineHtml = '';
+        if (scholarship.deadline) {
+            const deadlineDate = new Date(scholarship.deadline);
+            const day = String(deadlineDate.getDate()).padStart(2, '0');
+            const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
+            const year = deadlineDate.getFullYear();
+            const isOverdue = deadlineDate < currentDate;
+            deadlineHtml = `<p class="${isOverdue ? 'deadline-over' : ''}"><strong>Deadline:</strong> ${day}/${month}/${year}${isOverdue ? ' (Deadline Over)' : ''}</p>`;
+        }
+        // Fallback to prevent undefined
+        const scholarshipType = scholarship.type || 'unknown';
+        const scholarshipId = scholarship.id || 'unknown';
+        // Determine the details page based on scholarship type
+        const detailsPage = scholarshipType === 'provider' ? 'proschodet.html' : 'scholdet.html';
+        div.innerHTML = `
+            <div class="scholarship-icon">
+                <i data-feather="award"></i>
+            </div>
+            <h3>${scholarship.name || 'Scholarship Name'}</h3>
+            <p>${scholarship.description || 'No description available'}</p>
+            <div class="scholarship-details">
+                <p><strong>Provider:</strong> ${scholarship.organization || 'N/A'}</p>
+                <p><strong>Amount:</strong> ₹${scholarship.amount || 'N/A'}</p>
+                ${deadlineHtml}
+                <a href="${detailsPage}?scholarshipId=${scholarshipType}_${scholarshipId}&type=${scholarshipType}" class="btn btn-primary">View Details</a>               
+            </div>
+        `;
+        container.appendChild(div);
+    });
+
+    feather.replace();
+}
+
+function checkDeadlines() {
+    const deadlineElements = document.querySelectorAll('.scholarship-details p');
+    const currentDate = new Date();
+
+    deadlineElements.forEach(element => {
+        if (element.textContent.includes('Deadline')) {
+            const deadlineText = element.textContent.split('Deadline: ')[1].split(' (')[0]; // Extract date part
+            const [day, month, year] = deadlineText.split('/');
+            const deadlineDate = new Date(year, month - 1, day); // month is 0-based
+            const diffTime = deadlineDate - currentDate;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays <= 30) {
+                element.classList.add('deadline-soon');
+            }
+        }
+    });
+}
+    </script>
+    

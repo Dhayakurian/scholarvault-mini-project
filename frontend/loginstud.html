@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login - ScholarVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+	 :root {
+            --primary: #4e5679;
+            --primary-light: #7685af;
+            --primary-dark: #21253a;
+            --secondary: #f5f7fa;
+            --secondary-dark: #ebeef3;
+            --text-primary: #21253a;
+            --text-secondary: #616c98;
+            --text-muted: #94a3c3;
+            --border-color: #ebeef3;
+            --white: #ffffff;
+            --radius: 0.5rem;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+
+
+    .login-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background-color: var(--secondary);
+      background-image: radial-gradient(var(--secondary-dark) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 450px;
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-shape {
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 200px;
+      height: 200px;
+      background-color: rgba(118, 133, 175, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .login-header {
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-title {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .login-form {
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+    }
+
+    .form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box; /* Ensure padding and border are inside the width */
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(118, 133, 175, 0.2);
+}
+
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+  color: var(--text-muted);
+}
+
+.input-with-icon {
+  padding-left: 2.75rem; /* Adjust padding to accommodate the icon */
+}
+
+    
+
+    
+
+.login-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    background-color: var(--primary-dark);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Makes it full-width */
+    text-align: center;
+}
+
+.login-button:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+    .login-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .switch-type {
+      margin-left: 0.25rem;
+      font-weight: 600;
+    }
+
+    /* Updated Navbar Styles */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+      padding: 1rem 0;
+    }
+
+    .navbar-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      text-decoration: none; /* Removes underline */
+    }
+
+    .logo-icon {
+      margin-right: 8px;
+      color: var(--primary);
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="landinglovee.html" class="logo">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+          </svg>
+          ScholarVault
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Section -->
+  <section class="login-section fade-in">
+    <div class="login-card scale-in">
+      <div class="login-shape"></div>
+      <div class="login-header">
+        <h1 class="login-title">Student Login</h1>
+      </div>
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-icon-wrapper">
+            <i data-feather="mail" class="input-icon"></i>
+            <input type="email" id="email" name="email" class="form-input input-with-icon" placeholder="Enter your email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-icon-wrapper">
+            <i data-feather="lock" class="input-icon"></i>
+            <input type="password" id="password" name="password" class="form-input input-with-icon" placeholder="Enter your password" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large login-button">
+          Login
+        </button>
+      </form>
+      <p class="login-footer">
+        Don't have an account? <a href="signupstud.html" class="switch-type">Sign up</a>
+      </p>
+    </div>
+  </section>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    feather.replace();
+
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (email.trim() === '' || password.trim() === '') {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (!response.ok) {
+                const errorResult = await response.json();
+                throw new Error(errorResult.message || `HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("Login response:", result);
+
+            localStorage.setItem('token', result.data.token);
+            localStorage.setItem('userId', result.data.user_id);
+            localStorage.setItem('email', result.data.email);
+
+            // Fetch notices (no token required)
+            const noticesResponse = await fetch('http://127.0.0.1:5000/notices', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!noticesResponse.ok) {
+                const noticesError = await noticesResponse.json();
+                console.error('Failed to fetch notices:', noticesError.message);
+                alert('Login successful, but failed to fetch notices: ' + noticesError.message + '. You can still proceed.');
+            } else {
+                const noticesResult = await noticesResponse.json();
+                console.log("Notices response:", noticesResult);
+                localStorage.setItem('notices', JSON.stringify(noticesResult.data));
+                alert('Login successful!');
+            }
+
+            window.location.href = 'homemp.html';
+        } catch (error) {
+            console.error('Login error:', error.message);
+            alert(`An error occurred: ${error.message}`);
+        }
+    });
+});
+</script>
+
+</body>
+</html>
