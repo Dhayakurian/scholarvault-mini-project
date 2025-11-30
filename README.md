@@ -5,7 +5,6 @@
 ---
 
 ## 🧠 Tech Stack
-
 - **Backend:** Flask (Python)
 - **Database:** PostgreSQL
 - **Frontend:** HTML, CSS, JavaScript
