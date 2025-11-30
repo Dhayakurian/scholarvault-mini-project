@@ -28,7 +28,7 @@
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/scholarvault-mini-project.git
+git clone https://github.com/Dhayakurian/scholarvault-mini-project.git
 
 ###2. Backend setup
 cd backend
